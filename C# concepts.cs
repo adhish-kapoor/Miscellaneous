@@ -49,3 +49,51 @@ class GFG {
         Console.WriteLine(result);
     }
 }
+
+C# Serialization & Deserialization
+//Serialization is a concept in which C# class objects are written or serialized to files.
+//example C# class Tutorial having 2 properties ID and Tutorial name
+//Serializing can be used to directly write the data properties of the Tutorial class to a file.
+//Deserialization is used to read the data from the file and construct the Tutorial object again.
+using System;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
+namespace DemoApplication
+{
+  [Serializable]
+  class Tutorial
+  {
+  public int ID;
+  public String Name;
+   static void Main(string[] args)
+   {
+    Tutorial obj = new Tutorial();
+    obj.ID = 1;
+    obj.Name = ".Net";
+ 
+    //create the file stream
+    IFormatter formatter = new BinaryFormatter();
+    Stream stream = new FileStream(@"E:\ExampleNew.txt",FileMode.Create,FileAccess.Write);
+
+    //serialize the object
+    formatter.Serialize(stream, obj);
+    stream.Close();
+
+    //create the file stream
+    stream = new FileStream(@"E:\ExampleNew.txt",FileMode.Open,FileAccess.Read);
+    
+    //deserialize the object
+    Tutorial objnew = (Tutorial)formatter.Deserialize(stream);
+
+    //write data to the console
+    Console.WriteLine(objnew.ID);
+    Console.WriteLine(objnew.Name);
+
+    Console.ReadKey();
+  }
+ }
+}
