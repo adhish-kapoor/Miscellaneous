@@ -1,0 +1,10 @@
+//Some Validation classes on angular form
+ng-untouched            <div *ngIf="firstName.invalid" && "firstname.dirty">                                  
+ng-touched                         First Name is required
+--------                 <div>
+ng-pristine
+ng-dirty
+--------
+ng-valid
+ng-invalid
+
