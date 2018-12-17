@@ -10,4 +10,7 @@ ng-invalid
 ===================
 //Disabling submit button
 <button [disabled]="form.invalid">Ok</button>
-
+=============================
+:host==> By using this selector we can apply styles to host elements residing in parent component.
+:host-context==> Works same as :host but based on some given condition.
+/deep/==> Forces styles in its own component and all child components.
