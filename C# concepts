@@ -647,6 +647,54 @@ However, there are cases in which you have a method that does something, for ins
 You do not know at compile time what this second method is.
 That information is available only at runtime, hence Delegates are the device to overcome such complications.
 
+Delegates Sample Program
+
+The delegate implementation can cause a great deal of confusion when encountered the first time. 
+Thus, it is a great idea to get an understanding by creating this sample program as: 
+using System;
+namespace Delegates  
+{  
+    // Delegate Definition  
+    public delegate int operation(int x, int y);  
+         
+    class Program  
+    {  
+        // Method that is passes as an Argument  
+        // It has same signature as Delegates   
+        static int Addition(int a, int b)  
+        {  
+            return a + b;  
+        }  
+  
+        static void Main(string[] args)  
+        {  
+            // Delegate instantiation  
+            operation obj = new operation(Program.Addition);  
+   
+            // output  
+            Console.WriteLine("Addition is={0}",obj(23,27));   
+            Console.ReadLine();    
+        }  
+    }  
+}  
+Here, we are defining the delegate as a delegate type. 
+The important point to remember is that the signature of the function reference by the delegate must match the delegate signature as:
+
+// Delegate Definition  
+public delegate int operation(int x, int y);  
+Notice the format of the operation delegate type declaration; it specifies that the operation object can permit any method taking two integers and returning an integer.
+
+When you want to insert the target methods to a given delegate object, simply pass in the name of the method to the delegate constructor as: 
+// Delegate instantiation  
+operation obj = new operation(Program.Addition);  
+
+At this point, you are able to invoke the member pointed to using a direct function invocation as:
+Console.WriteLine("Addition is={0}",obj(23,27));   
+Finally, when the delegate is no longer required, set the delegate instance to null.
+
+Recall that .NET delegates are type-safe. Therefore, if you attempt to pass a delegate a method that does not match the signature pattern,
+the .NET will report a compile-time error.
+
 20. What is IEnumerable<> in C#?
 
 A. IEnumerable is the parent interface for all non-generic collections in System.Collections namespace 
@@ -655,3 +703,8 @@ For the generic version of this interface as
 IEnumerable<T> which a parent interface of all generic collections class in System.Collections.Generic namespace 
 like List<> and more.
 
+In System.Collections.Generic.IEnumerable<T> have only a single method which is GetEnumerator() that returns an IEnumerator. 
+IEnumerator provides the power to iterate through the collection by exposing a Current property and Move Next and Reset methods
+if we don’t have this interface as a parent so we can’t use iteration by foreach loop or can’t use that class object in our LINQ query.
+ 
+21. 
