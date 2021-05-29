@@ -351,6 +351,32 @@ public partial Clas_name
 {
        // code
 }
+
+Partial Classes can be created in the same namespace. It isn't possible to create a partial class in a different namespace. 
+So use the “partial” keyword with all the class names that you want to bind together with the same name of a class in the same namespace.
+
+partial class Class1{
+      public void function1()
+      {
+        Console.WriteLine("function 1");
+      }
+}
+partial class Class1{
+      public void function2()
+      {
+        Console.WriteLine("function 2");
+      }
+}
+
+class Program{
+      static void Main(string [] args)
+      {
+        Class1 obj = new Class1();
+        obj.function1();
+        obj.function2();
+      }
+}
+
 You can easily split the functionalities of methods, interfaces, or structures into multiple files. 
 You can even add nested partial classes. 
 
@@ -566,4 +592,66 @@ In an abstract class, we need to use abstract keywords to declare abstract metho
 An abstract class can’t be used for multiple inheritance while the interface can be used as multiple inheritance.
 An abstract class use constructor while in an interface we don’t have any type of constructor.
 
-18. 
+18. What is the difference between the dispose and finalize methods in C#?
+
+A. Finalize
+Finalize is used to free unmanaged resources that are not in use, like files, database connections in the application domain and more.
+These are resources held by an object before that object is destroyed.
+In the Internal process, it is called by Garbage Collector and can’t be called manual by user code or any service.
+Finalize belongs to System.Object class.
+Implement it when you have unmanaged resources in your code, and make sure that these resources are freed when the Garbage collection happens.
+
+Dispose
+Dispose is also used to free unmanaged resources that are not in use like files, database connections in the Application domain at any time.
+Dispose is explicitly called by manual user code.
+If we need to use the dispose method, we must implement that class via IDisposable interface.
+It belongs to IDisposable interface.
+Implement this when you are writing a custom class that will be used by other users.
+
+19. What are delegates in C# and the uses of delegates?
+
+A. A Delegate is an abstraction of one or more function pointers (as existed in C++; the explanation about this is out of the scope of this article). 
+The .NET has implemented the concept of function pointers in the form of delegates. 
+With delegates, you can treat a function as data. 
+Delegates allow functions to be passed as parameters, returned from a function as a value and stored in an array. 
+
+Delegates have the following characteristics:
+-Delegates are derived from the System.MulticastDelegate class.
+-They have a signature and a return type. A function that is added to delegates must be compatible with this signature.
+-Delegates can point to either static or instance methods.
+-Once a delegate object has been created, it may dynamically invoke the methods it points to at runtime.
+-Delegates can call methods synchronously and asynchronously.
+
+The delegate contains a couple of useful fields. The first one holds a reference to an object, and the second holds a method pointer.
+When you invoke the delegate, the instance method is called on the contained reference. 
+However, if the object reference is null then the runtime understands this to mean that the method is a static method. 
+Moreover, invoking a delegate syntactically is the exact same as calling a regular function. 
+Therefore, delegates are perfect for implementing callbacks.
+ 
+Why Do We Need Delegates?
+ 
+Historically, the Windows API made frequent use of C-style function pointers to create callback functions. 
+Using a callback, programmers were able to configure one function to report back to another function in the application. 
+So the objective of using a callback is to handle button-clicking, menu-selection, and mouse-moving activities. 
+But the problem with this traditional approach is that the callback functions were not type-safe. 
+In the .NET framework, callbacks are still possible using delegates with a more efficient approach.
+
+Delegates maintain three important pieces of information:
+-The parameters of the method.
+-The address of the method it calls.
+-The return type of the method.
+
+A delegate is a solution for situations in which you want to pass methods around to other methods. 
+You are so accustomed to passing data to methods as parameters that the idea of passing methods as an argument instead of data might sound a little strange. 
+However, there are cases in which you have a method that does something, for instance, invoking some other method.
+You do not know at compile time what this second method is.
+That information is available only at runtime, hence Delegates are the device to overcome such complications.
+
+20. What is IEnumerable<> in C#?
+
+A. IEnumerable is the parent interface for all non-generic collections in System.Collections namespace 
+like ArrayList, HastTable etc. that can be enumerated. 
+For the generic version of this interface as 
+IEnumerable<T> which a parent interface of all generic collections class in System.Collections.Generic namespace 
+like List<> and more.
+
