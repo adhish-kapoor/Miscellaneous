@@ -707,4 +707,244 @@ In System.Collections.Generic.IEnumerable<T> have only a single method which is 
 IEnumerator provides the power to iterate through the collection by exposing a Current property and Move Next and Reset methods
 if we don’t have this interface as a parent so we can’t use iteration by foreach loop or can’t use that class object in our LINQ query.
  
-21. 
+21. What is the difference between late binding and early binding in C#?
+
+A. Compile Time Polymorphism or Early Binding
+ 
+In Compile time polymorphism or Early Binding, we will use multiple methods with the same name but different types of parameters, or maybe the number of parameters. 
+Because of this, we can perform different-different tasks with the same method name in the same class which is also known as Method overloading.
+
+Run Time Polymorphism or Late Binding
+ 
+Run time polymorphism is also known as late binding. 
+In Run Time Polymorphism or Late Binding, we can use the same method names with the same signatures, 
+which means the same type or the same number of parameters, but not in the same class 
+because the compiler doesn’t allow for that at compile time. 
+Therefore, we can use that bind at run time in the derived class when a child class or derived class object will be instantiated. 
+That’s why we call it Late Binding. 
+We have to create my parent class functions as partial and in driver or child class as override functions with the override keyword.
+
+class Class1{
+public virtual string Testfunc()
+{
+  return "Hello";
+}
+}
+
+class Class2 : Class1{
+public override string Testfunc()
+{
+  return "Bye";
+}
+}
+
+class Program{
+static void Main(string [] args)
+{
+  Class2 obj = new Class2();
+  obj.Testfunc();
+  
+}
+}
+
+22. What are the differences between IEnumerable and IQueryable?
+
+A. IEnumerable
+ 
+Is the parent interface for all non-generic collections in System.Collections namespace like ArrayList, HastTable, etc. that can be enumerated. 
+The generic version of this interface is IEnumerable<T>, 
+which a parent interface of all generic collections class in System.Collections.Generic namespace, like List<> and more. 
+
+IQueryable
+ 
+As per MSDN, the IQueryable interface is intended for implementation by query providers and belongs to System.Linq namespace. 
+It is only supposed to be implemented by providers that also implement IQueryable<T>. 
+If the provider does not also implement IQueryable<T>, the standard query operators cannot be used on the provider's data source.
+
+-IEnumerable is great for working with in-memory collections, but 
+IQueryable allows for a remote data source such as a database or web service.
+-IEnumerable is the return type for LINQ to Object and LINQ to XML queries.
+IQueryable is the return type of LINQ to SQL queries.
+-IEnumerable doesn't support lazy loading, so it is not recommended for paging kind of scenarios.
+IQueryable supports lazy loading and we can use paging kind of scenarios.
+
+23. What happens if the inherited interfaces have conflicting method names?
+
+A. We have to use the interface name before the method name to remove this method confiscation.
+
+namespace ConsoleApplication1  
+{  
+    interface IShow  
+    {  
+        void Show();  
+    }    
+    interface IShow_Case  
+    {  
+        void Show();  
+    }  
+    class B : IShow, IShow_Case  
+    {  
+        public void IShow.Show()  
+        {  
+            Console.WriteLine("IShow Interface function");  
+        }    
+        public void IShow_Case.Show()  
+        {  
+            Console.WriteLine("IShow_Case Interface function");  
+        }   
+        static void Main(string[] args)  
+  
+        {  
+            IShow I = new B();  
+            I.Show();  // IShow Interface function
+            IShow_Case I1 = new B();  
+            I1.Show(); // IShow_Case Interface function
+            Console.ReadKey(true);  
+        }  
+    }    
+}  
+
+Here you need to remove Public modifier from the methods, because it implement by using interface name to differentiate same method by their interface. 
+We know interface by default Public so we need to remove Public modifier from the methods. 
+
+24. What is the Constructor Chaining in C#?
+
+A. Constructor chaining is a way to connect two or more classes in a relationship as Inheritance. 
+In Constructor Chaining, every child class constructor is mapped to a parent class Constructor implicitly by base keyword, 
+so when you create an instance of the child class, it will call the parent’s class Constructor. 
+Without it, inheritance is not possible.
+
+25. What’s the difference between the Array.CopyTo() and Array.Clone()?
+
+A. The Array.Clone() method creates a shallow copy of an array. 
+A shallow copy of an Array copies only the elements of the Array, whether they are reference types or value types, 
+but it does not copy the objects that the references refer to.
+The references in the new Array point to the same objects that the references in the original Array point to.
+
+The CopyTo() static method of the Array class copies a section of an array to another array. 
+The CopyTo method copies all the elements of an array to another one-dimension array.
+The code listed in Listing 9 copies contents of an integer array to an array of object types.
+
+26. What are Singleton Design Patterns and how to implement them in C#? 
+
+A. What is a Singleton Design Pattern? 
+1. Ensures a class has only one instance and provides a global point of access to it.
+2. A Singleton is a class that only allows a single instance of itself to be created and usually gives simple access to that instance.
+3. Most commonly, singletons don't allow any parameters to be specified when creating the instance 
+since the second request of an instance with a different parameter could be problematic! 
+(If the same instance should be accessed for all requests with the same parameter then the factory pattern is more appropriate.)
+4. There are various ways to implement the Singleton Pattern in C#. The following are the common characteristics of a Singleton Pattern.
+-A single constructor, that is private and parameterless.
+-The class is sealed.
+-A static variable that holds a reference to the single created instance, if any.
+-A public static means of getting the reference to the single created instance, creating one if necessary.
+
+Example of how to write code with Singleton:
+namespace Singleton {  
+    class Program {  
+        static void Main(string[] args) {  
+            Calculate.Instance.ValueOne = 10.5;  
+            Calculate.Instance.ValueTwo = 5.5;  
+            Console.WriteLine("Addition : " + Calculate.Instance.Addition());  
+            Console.WriteLine("Subtraction : " + Calculate.Instance.Subtraction());  
+            Console.WriteLine("Multiplication : " + Calculate.Instance.Multiplication());  
+            Console.WriteLine("Division : " + Calculate.Instance.Division());  
+            Console.WriteLine("\n----------------------\n");  
+            Calculate.Instance.ValueTwo = 10.5;  
+            Console.WriteLine("Addition : " + Calculate.Instance.Addition());  
+            Console.WriteLine("Subtraction : " + Calculate.Instance.Subtraction());  
+            Console.WriteLine("Multiplication : " + Calculate.Instance.Multiplication());  
+            Console.WriteLine("Division : " + Calculate.Instance.Division());  
+            Console.ReadLine();  
+        }  
+    }  
+    public sealed class Calculate {  
+        private Calculate() {}  
+        private static Calculate instance = null;  
+        public static Calculate Instance {  
+            get {  
+                if (instance == null) {  
+                    instance = new Calculate();  
+                }  
+                return instance;  
+            }  
+        }  
+        public double ValueOne {  
+            get;  
+            set;  
+        }  
+        public double ValueTwo {  
+            get;  
+            set;  
+        }  
+        public double Addition() {  
+            return ValueOne + ValueTwo;  
+        }  
+        public double Subtraction() {  
+            return ValueOne - ValueTwo;  
+        }  
+        public double Multiplication() {  
+            return ValueOne * ValueTwo;  
+        }  
+        public double Division() {  
+            return ValueOne / ValueTwo;  
+        }  
+    }  
+}  
+
+27. Difference between Throw Exception and Throw Clause.
+
+A. The basic difference is that the Throw exception overwrites the stack trace. 
+This makes it hard to find the original code line number that has thrown the exception.
+
+Throw basically retains the stack information and adds to the stack information in the exception that it is thrown.
+
+using System;  
+using System.Collections.Generic;  
+using System.Linq;  
+using System.Text;  
+namespace TestingThrowExceptions {  
+    class Program {  
+        public void ExceptionMethod() {  
+            throw new Exception("Original Exception occurred in ExceptionMethod");  
+        }  
+        static void Main(string[] args) {  
+            Program p = new Program();  
+            try {  
+                p.ExceptionMethod();  
+            } catch (Exception ex) {  
+                throw ex;  
+            }  
+        }  
+    }  
+}  
+It returns an exception and look at the stack trace.
+
+28. What are Indexers in C#?
+
+A. C# introduces a new concept known as Indexers which are used for treating an object as an array. 
+The indexers are usually known as smart arrays in C#. They are not an essential part of object-oriented programming.
+ 
+Defining an indexer allows you to create classes that act as virtual arrays. 
+Instances of that class can be accessed using the [] array access operator.
+
+Creating an Indexer 
+< modifier > < return type > this[argument list] {    
+    get {    
+        // your get block code    
+    }    
+    set {    
+        // your set block code    
+    }    
+}    
+In the above code,
+ 
+<modifier>
+ 
+can be private, public, protected or internal.
+ 
+<return type>
+ 
+can be any valid C# types.
+
+29. 
