@@ -1094,3 +1094,275 @@ It ensures that a derived class does not affect the behavior of the parent class
 This principle is just an extension of the Open Closed Principle and 
 it means that we must ensure that new derived classes extend the base classes without changing their behavior.
 
+Now jump into an example to learn how a design can violate LSP.
+Suppose we need to build an app to manage data using a group of SQL files text.
+Here we need to write functionality to load and save the text of a group of SQL files in the application directory.
+So we need a class that manages the load and saves the text of group of SQL files along with the SqlFile Class. 
+
+public class SqlFile  
+{  
+   public string FilePath {get;set;}  
+   public string FileText {get;set;}  
+   public string LoadText()  
+   {  
+      /* Code to read text from sql file */  
+   }  
+   public string SaveText()  
+   {  
+      /* Code to save text into sql file */  
+   }  
+}  
+public class SqlFileManager  
+{  
+   public List<SqlFile> lstSqlFiles {get;set}  
+  
+   public string GetTextFromFiles()  
+   {  
+      StringBuilder objStrBuilder = new StringBuilder();  
+      foreach(var objFile in lstSqlFiles)  
+      {  
+         objStrBuilder.Append(objFile.LoadText());  
+      }  
+      return objStrBuilder.ToString();  
+   }  
+   public void SaveTextIntoFiles()  
+   {  
+      foreach(var objFile in lstSqlFiles)  
+      {  
+         objFile.SaveText();  
+      }  
+   }  
+}  
+
+OK. We are done with our part. The functionality looks good for now.
+After some time our leaders might tell us that we may have a few read-only files in the application folder, 
+so we need to restrict the flow whenever it tries to do a save on them.
+ 
+OK. We can do that by creating a "ReadOnlySqlFile" class that inherits the "SqlFile" class and 
+we need to alter the SaveTextIntoFiles() method by introducing a condition to prevent calling the SaveText() method on ReadOnlySqlFile instances.
+
+public class SqlFile  
+{  
+   public string LoadText()  
+   {  
+   /* Code to read text from sql file */  
+   }  
+   public void SaveText()  
+   {  
+      /* Code to save text into sql file */  
+   }  
+}  
+public class ReadOnlySqlFile: SqlFile  
+{  
+   public string FilePath {get;set;}  
+   public string FileText {get;set;}  
+   public string LoadText()  
+   {  
+      /* Code to read text from sql file */  
+   }  
+   public void SaveText()  
+   {  
+      /* Throw an exception when app flow tries to do save. */  
+      throw new IOException("Can't Save");  
+   }  
+}  
+
+To avoid an exception we need to modify "SqlFileManager" by adding one condition to the loop.
+public class SqlFileManager  
+{  
+   public List<SqlFile? lstSqlFiles {get;set}  
+   public string GetTextFromFiles()  
+   {  
+      StringBuilder objStrBuilder = new StringBuilder();  
+      foreach(var objFile in lstSqlFiles)  
+      {  
+         objStrBuilder.Append(objFile.LoadText());  
+      }  
+      return objStrBuilder.ToString();  
+   }  
+   public void SaveTextIntoFiles()  
+   {  
+      foreach(var objFile in lstSqlFiles)  
+      {  
+         //Check whether the current file object is read-only or not.If yes, skip calling it's  
+         // SaveText() method to skip the exception.  
+  
+         if(! objFile is ReadOnlySqlFile)  
+         objFile.SaveText();  
+      }  
+   }  
+}  
+
+Here we altered the SaveTextIntoFiles() method in the SqlFileManager class to determine whether or not the instance is of ReadOnlySqlFile to avoid the exception.
+We can't use this ReadOnlySqlFile class as a substitute for its parent without altering SqlFileManager code. 
+So we can say that this design is not following LSP. 
+Let's make this design follow the LSP. Here we will introduce interfaces to make the SqlFileManager class independent from the rest of the blocks.
+public interface IReadableSqlFile  
+{  
+   string LoadText();  
+}  
+public interface IWritableSqlFile  
+{  
+   void SaveText();  
+}  
+Now we implement IReadableSqlFile through the ReadOnlySqlFile class that reads only the text from read-only files.
+public class ReadOnlySqlFile: IReadableSqlFile  
+{  
+   public string FilePath {get;set;}  
+   public string FileText {get;set;}  
+   public string LoadText()  
+   {  
+      /* Code to read text from sql file */  
+   }  
+}  
+Here we implement both IWritableSqlFile and IReadableSqlFile in a SqlFile class by which we can read and write files.
+public class SqlFile: IWritableSqlFile,IReadableSqlFile  
+{  
+   public string FilePath {get;set;}  
+   public string FileText {get;set;}  
+   public string LoadText()  
+   {  
+      /* Code to read text from sql file */  
+   }  
+   public void SaveText()  
+   {  
+      /* Code to save text into sql file */  
+   }  
+}  
+Now the design of the SqlFileManager class becomes like this:
+public class SqlFileManager  
+{  
+   public string GetTextFromFiles(List<IReadableSqlFile> aLstReadableFiles)  
+   {  
+      StringBuilder objStrBuilder = new StringBuilder();  
+      foreach(var objFile in aLstReadableFiles)  
+      {  
+         objStrBuilder.Append(objFile.LoadText());  
+      }  
+      return objStrBuilder.ToString();  
+   }  
+   public void SaveTextIntoFiles(List<IWritableSqlFile> aLstWritableFiles)  
+   {  
+   foreach(var objFile in aLstWritableFiles)  
+   {  
+      objFile.SaveText();  
+   }  
+   }  
+}  
+Here the GetTextFromFiles() method gets only the list of instances of classes that implement the IReadOnlySqlFile interface. 
+That means the SqlFile and ReadOnlySqlFile class instances. 
+And the SaveTextIntoFiles() method gets only the list instances of the class that implements the IWritableSqlFiles interface,
+in other words, SqlFile instances in this case. Now we can say our design is following the LSP. 
+And we fixed the problem using the Interface segregation principle by (ISP) identifying the abstraction and the responsibility separation method.
+
+I: Interface Segregation Principle (ISP)
+The Interface Segregation Principle states "that clients should not be forced to implement interfaces they don't use. 
+Instead of one fat interface, many small interfaces are preferred based on groups of methods, each one serving one submodule."
+
+Like classes, each interface should have a specific purpose/responsibility (refer to SRP).
+You shouldn't be forced to implement an interface when your object doesn't share that purpose. 
+The larger the interface, the more likely it includes methods that not all implementers can do. 
+That's the essence of the Interface Segregation Principle.
+
+Let's start with an example that breaks the ISP. 
+Suppose we need to build a system for an IT firm that contains roles like TeamLead and Programmer where 
+TeamLead divides a huge task into smaller tasks and assigns them to his/her programmers or can directly work on them.
+
+Based on specifications, we need to create an interface and a TeamLead class to implement it. 
+public Interface ILead  
+{  
+   void CreateSubTask();  
+   void AssginTask();  
+   void WorkOnTask();  
+}  
+public class TeamLead : ILead  
+{  
+   public void AssignTask()  
+   {  
+      //Code to assign a task.  
+   }  
+   public void CreateSubTask()  
+   {  
+      //Code to create a sub task  
+   }  
+   public void WorkOnTask()  
+   {  
+      //Code to implement perform assigned task.  
+   }  
+}  
+
+Later another role like Manager, who assigns tasks to TeamLead and will not work on the tasks, is introduced into the system.
+Can we directly implement an ILead interface in the Manager class, like the following?
+public class Manager: ILead  
+{  
+   public void AssignTask()  
+   {  
+      //Code to assign a task.  
+   }  
+   public void CreateSubTask()  
+   {  
+      //Code to create a sub task.  
+   }  
+   public void WorkOnTask()  
+   {  
+      throw new Exception("Manager can't work on Task");  
+   }  
+}  
+
+Since the Manager can't work on a task and at the same time no one can assign tasks to the Manager, this WorkOnTask() should not be in the Manager class. 
+But we are implementing this class from the ILead interface, we need to provide a concrete Method. 
+Here we are forcing the Manager class to implement a WorkOnTask() method without a purpose. This is wrong. 
+The design violates ISP. Let's correct the design.
+Since we have three roles, 
+1. Manager, that can only divide and assign the tasks, 
+2. TeamLead that can divide and assign the tasks and can work on them as well, 
+3. The programmer that can only work on tasks, we need to divide the responsibilities by segregating the ILead interface.
+An interface that provides a contract for WorkOnTask().
+public interface IProgrammer  
+{  
+   void WorkOnTask();  
+}  
+An interface that provides contracts to manage the tasks:
+public interface ILead  
+{  
+   void AssignTask();  
+   void CreateSubTask();  
+}  
+Then the implementation becomes:
+public class Programmer: IProgrammer  
+{  
+   public void WorkOnTask()  
+   {  
+      //code to implement to work on the Task.  
+   }  
+}  
+public class Manager: ILead  
+{  
+   public void AssignTask()  
+   {  
+      //Code to assign a Task  
+   }  
+   public void CreateSubTask()  
+   {  
+   //Code to create a sub taks from a task.  
+   }  
+}  
+TeamLead can manage tasks and can work on them if needed. Then the TeamLead class should implement both of the IProgrammer and ILead interfaces.
+public class TeamLead: IProgrammer, ILead  
+{  
+   public void AssignTask()  
+   {  
+      //Code to assign a Task  
+   }  
+   public void CreateSubTask()  
+   {  
+      //Code to create a sub task from a task.  
+   }  
+   public void WorkOnTask()  
+   {  
+      //code to implement to work on the Task.  
+   }  
+}  
+Wow. Here we separated responsibilities/purposes and distributed them on multiple interfaces and provided a good level of abstraction too.
+
+D: Dependency Inversion Principle
