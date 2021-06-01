@@ -1366,3 +1366,237 @@ public class TeamLead: IProgrammer, ILead
 Wow. Here we separated responsibilities/purposes and distributed them on multiple interfaces and provided a good level of abstraction too.
 
 D: Dependency Inversion Principle
+The Dependency Inversion Principle (DIP) states that high-level modules/classes should not depend on low-level modules/classes.
+Both should depend upon abstractions. 
+Secondly, abstractions should not depend upon details.
+Details should depend upon abstractions.
+
+High-level modules/classes implement business rules or logic in a system (application). 
+Low-level modules/classes deal with more detailed operations; 
+in other words they may deal with writing information to databases or passing messages to the operating system or services.
+
+A high-level module/class that has a dependency on low-level modules/classes or 
+some other class and knows a lot about the other classes it interacts with is said to be tightly coupled. 
+When a class knows explicitly about the design and implementation of another class, it raises the risk that changes to one class will break the other class. 
+So we must keep these high-level and low-level modules/classes loosely coupled as much as we can. 
+To do that, we need to make both of them dependent on abstractions instead of knowing each other.
+Let's start with an example.
+
+Suppose we need to work on an error logging module that logs exception stack traces into a file. Simple, isn't it?
+The following are the classes that provide the functionality to log a stack trace into a file. 
+public class FileLogger  
+{  
+   public void LogMessage(string aStackTrace)  
+   {  
+      //code to log stack trace into a file.  
+   }  
+}  
+public class ExceptionLogger  
+{  
+   public void LogIntoFile(Exception aException)  
+   {  
+      FileLogger objFileLogger = new FileLogger();  
+      objFileLogger.LogMessage(GetUserReadableMessage(aException));  
+   }  
+   private GetUserReadableMessage(Exception ex)  
+   {  
+      string strMessage = string. Empty;  
+      //code to convert Exception's stack trace and message to user readable format.  
+      ....  
+      ....  
+      return strMessage;  
+   }  
+}  
+A client class exports data from many files to a database.
+public class DataExporter  
+{  
+   public void ExportDataFromFile()  
+   {  
+   try {  
+      //code to export data from files to database.  
+   }  
+   catch(Exception ex)  
+   {  
+      new ExceptionLogger().LogIntoFile(ex);  
+   }  
+}  
+}  
+Looks good. We sent our application to the client. 
+But our client wants to store this stack trace in a database if an IO exception occurs. 
+Hmm... okay, no problem. We can implement that too. 
+Here we need to add one more class that provides the functionality to log the stack trace into the database and
+an extra method in ExceptionLogger to interact with our new class to log the stack trace.
+public class DbLogger  
+{  
+   public void LogMessage(string aMessage)  
+   {  
+      //Code to write message in database.  
+   }  
+}  
+public class FileLogger  
+{  
+   public void LogMessage(string aStackTrace)  
+   {  
+      //code to log stack trace into a file.  
+   }  
+}  
+public class ExceptionLogger  
+{  
+   public void LogIntoFile(Exception aException)  
+   {  
+      FileLogger objFileLogger = new FileLogger();  
+      objFileLogger.LogMessage(GetUserReadableMessage(aException));  
+   }  
+   public void LogIntoDataBase(Exception aException)  
+   {  
+      DbLogger objDbLogger = new DbLogger();  
+      objDbLogger.LogMessage(GetUserReadableMessage(aException));  
+   }  
+   private string GetUserReadableMessage(Exception ex)  
+   {  
+      string strMessage = string.Empty;  
+      //code to convert Exception's stack trace and message to user readable format.  
+      ....  
+      ....  
+      return strMessage;  
+   }  
+}  
+public class DataExporter  
+{  
+   public void ExportDataFromFile()  
+   {  
+      try {  
+         //code to export data from files to database.  
+      }  
+      catch(IOException ex)  
+      {  
+         new ExceptionLogger().LogIntoDataBase(ex);  
+      }  
+      catch(Exception ex)  
+      {  
+         new ExceptionLogger().LogIntoFile(ex);  
+      }  
+   }  
+}  
+Looks fine for now. But whenever the client wants to introduce a new logger, we need to alter ExceptionLogger by adding a new method. 
+If we continue doing this after some time then we will see a fat ExceptionLogger class with a large set of methods 
+that provide the functionality to log a message into various targets. 
+Why does this issue occur? Because ExceptionLogger directly contacts the low-level classes FileLogger and DbLogger to log the exception.
+We need to alter the design so that this ExceptionLogger class can be loosely coupled with those classes. 
+To do that we need to introduce an abstraction between them so that ExcetpionLogger can contact the abstraction to log the exception 
+instead of depending on the low-level classes directly.
+public interface ILogger  
+{  
+   void LogMessage(string aString);  
+} 
+Now our low-level classes need to implement this interface.
+public class DbLogger: ILogger  
+{  
+   public void LogMessage(string aMessage)  
+   {  
+      //Code to write message in database.  
+   }  
+}  
+public class FileLogger: ILogger  
+{  
+   public void LogMessage(string aStackTrace)  
+   {  
+      //code to log stack trace into a file.  
+   }  
+}  
+Now, we move to the low-level class's initiation from the ExcetpionLogger class to the DataExporter class to make
+ExceptionLogger loosely coupled with the low-level classes FileLogger and EventLogger.
+And by doing that we are giving provision to DataExporter class to decide what kind of Logger should be called based on the exception that occurs.
+public class ExceptionLogger  
+{  
+   private ILogger _logger;  
+   public ExceptionLogger(ILogger aLogger)  
+   {  
+      this._logger = aLogger;  
+   }  
+   public void LogException(Exception aException)  
+   {  
+      string strMessage = GetUserReadableMessage(aException);  
+      this._logger.LogMessage(strMessage);  
+   }  
+   private string GetUserReadableMessage(Exception aException)  
+   {  
+      string strMessage = string.Empty;  
+      //code to convert Exception's stack trace and message to user readable format.  
+      ....  
+      ....  
+      return strMessage;  
+   }  
+}  
+public class DataExporter  
+{  
+   public void ExportDataFromFile()  
+   {  
+      ExceptionLogger _exceptionLogger;  
+      try {  
+         //code to export data from files to database.  
+      }  
+      catch(IOException ex)  
+      {  
+         _exceptionLogger = new ExceptionLogger(new DbLogger());  
+         _exceptionLogger.LogException(ex);  
+      }  
+      catch(Exception ex)  
+      {  
+         _exceptionLogger = new ExceptionLogger(new FileLogger());  
+         _exceptionLogger.LogException(ex);  
+      }  
+   }  
+}  
+We successfully removed the dependency on low-level classes. 
+This ExceptionLogger doesn't depend on the FileLogger and EventLogger classes to log the stack trace. 
+We don't need to change the ExceptionLogger's code anymore for any new logging functionality. 
+We need to create a new logging class that implements the ILogger interface and must add another catch block to the DataExporter class's ExportDataFromFile method.
+public class EventLogger: ILogger  
+{  
+   public void LogMessage(string aMessage)  
+   {  
+      //Code to write message in system's event viewer.  
+   }  
+}  
+And we need to add a condition in the DataExporter class as in the following:
+public class DataExporter  
+{  
+   public void ExportDataFromFile()  
+   {  
+      ExceptionLogger _exceptionLogger;  
+      try {  
+         //code to export data from files to database.  
+      }  
+      catch(IOException ex)  
+      {  
+         _exceptionLogger = new ExceptionLogger(new DbLogger());  
+         _exceptionLogger.LogException(ex);  
+      }  
+      catch(SqlException ex)  
+      {  
+         _exceptionLogger = new ExceptionLogger(new EventLogger());  
+         _exceptionLogger.LogException(ex);  
+      }  
+      catch(Exception ex)  
+      {  
+         _exceptionLogger = new ExceptionLogger(new FileLogger());  
+         _exceptionLogger.LogException(ex);  
+      }  
+   }  
+}  
+Looks good. But we introduced the dependency here in the DataExporter class's catch blocks.
+Yeah, someone must take the responsibility to provide the necessary objects to the ExceptionLogger to get the work done.
+ 
+Let me explain it with a real-world example. 
+Suppose we want to have a wooden chair with specific measurements and the kind of wood to be used to make that chair. 
+Then we can't leave the decision making on measurements and the wood to the carpenter. 
+Here his job is to make a chair based on our requirements with his tools and we provide the specifications to him to make a good chair.
+ 
+So what is the benefit we get by the design?
+Yes, we definitely have a benefit with it.
+We need to modify both the DataExporter class and ExceptionLogger class whenever we need to introduce a new logging functionality. 
+But in the updated design we need to add only another catch block for the new exception logging feature. Coupling is not inherently evil.
+If you don't have some amount of coupling, your software will not do anything for you. 
+The only thing we need to do is understand the system, requirements, and environment properly and find areas where DIP should be followed.
+
