@@ -947,4 +947,150 @@ can be private, public, protected or internal.
  
 can be any valid C# types.
 
-29. 
+29. SOLID principles
+
+A. SOLID principles are the design principles that enable us to manage most of the software design problems.
+S: Single Responsibility Principle (SRP)
+O: Open closed Principle (OCP)
+L: Liskov substitution Principle (LSP)
+I: Interface Segregation Principle (ISP)
+D: Dependency Inversion Principle (DIP)
+
+S: Single Responsibility Principle (SRP)
+This means that every class, or similar structure, in your code should have only one job to do.
+Everything in that class should be related to a single purpose. 
+Our class should not be like a Swiss knife wherein if one of them needs to be changed then the entire tool needs to be altered. 
+It does not mean that your classes should only contain one method or property. 
+There may be many members as long as they relate to single responsibility.
+
+The Single Responsibility Principle gives us a good way of identifying classes at the design phase of an application and it makes you think of all the ways a class can change. 
+A good separation of responsibilities is done only when we have the full picture of how the application should work.
+
+public class UserService  
+{  
+   public void Register(string email, string password)  
+   {  
+      if (!ValidateEmail(email))  
+         throw new ValidationException("Email is not an email");  
+         var user = new User(email, password);  
+  
+         SendEmail(new MailMessage("mysite@nowhere.com", email) { Subject="HEllo foo" });  
+   }
+   public virtual bool ValidateEmail(string email)  
+   {  
+     return email.Contains("@");  
+   }  
+   public bool SendEmail(MailMessage message)  
+   {  
+     _smtpClient.Send(message);  
+   }  
+}   
+
+It looks fine, but it is not following SRP.
+The SendEmail and ValidateEmail methods have nothing to do within the UserService class. Let's refract it.
+
+public class UserService  
+{  
+   EmailService _emailService;  
+   DbContext _dbContext;  
+   public UserService(EmailService aEmailService, DbContext aDbContext)  
+   {  
+      _emailService = aEmailService;  
+      _dbContext = aDbContext;  
+   }  
+   public void Register(string email, string password)  
+   {  
+      if (!_emailService.ValidateEmail(email))  
+         throw new ValidationException("Email is not an email");  
+         var user = new User(email, password);  
+         _dbContext.Save(user);  
+         emailService.SendEmail(new MailMessage("myname@mydomain.com", email) {Subject="Hi. How are you!"});  
+  
+      }  
+   }  
+   public class EmailService  
+   {  
+      SmtpClient _smtpClient;  
+   public EmailService(SmtpClient aSmtpClient)  
+   {  
+      _smtpClient = aSmtpClient;  
+   }  
+   public bool virtual ValidateEmail(string email)  
+   {  
+      return email.Contains("@");  
+   }  
+   public bool SendEmail(MailMessage message)  
+   {  
+      _smtpClient.Send(message);  
+   }  
+}   
+
+O: Open/Closed Principle
+The Open/closed Principle says "A software module/class is open for extension and closed for modification".
+Here "Open for extension" means, we need to design our module/class in such a way that the new functionality can be added only when new requirements are generated.
+"Closed for modification" means we have already developed a class and it has gone through unit testing. We should then not alter it until we find bugs. 
+As it says, a class should be open for extensions, we can use inheritance to do this. Okay, let's dive into an example.
+
+Suppose we have a Rectangle class with the properties Height and Width.
+public class Rectangle{  
+   public double Height {get;set;}  
+   public double Wight {get;set; }  
+}  
+
+Our app needs the ability to calculate the total area of a collection of Rectangles. 
+Since we already learned the Single Responsibility Principle (SRP), we don't need to put the total area calculation code inside the rectangle. 
+So here I created another class for area calculation.
+public class AreaCalculator {  
+   public double TotalArea(Rectangle[] arrRectangles)  
+   {  
+      double area;  
+      foreach(var objRectangle in arrRectangles)  
+      {  
+         area += objRectangle.Height * objRectangle.Width;  
+      }  
+      return area;  
+   }  
+}  
+ 
+can we extend our app so that it could calculate the area of not only Rectangles but also the area of Circles as well? 
+Now we have an issue with the area calculation issue because the way to do circle area calculation is different.
+We can change the TotalArea method a bit so that it can accept an array of objects as an argument. 
+We check the object type in the loop and do area calculation based on the object type.
+public class Rectangle{  
+   public double Height {get;set;}  
+   public double Wight {get;set; }  
+}  
+public class Circle{  
+   public double Radius {get;set;}  
+}  
+public class AreaCalculator  
+{  
+   public double TotalArea(object[] arrObjects)  
+   {  
+      double area = 0;  
+      Rectangle objRectangle;  
+      Circle objCircle;  
+      foreach(var obj in arrObjects)  
+      {  
+         if(obj is Rectangle)  
+         {    
+            area += obj.Height * obj.Width;  
+         }  
+         else  
+         {  
+            objCircle = (Circle)obj;  
+            area += objCircle.Radius * objCircle.Radius * Math.PI;  
+         }  
+      }  
+      return area;  
+   }  
+}  
+
+L: Liskov Substitution Principle
+The Liskov Substitution Principle (LSP) states that 
+"you should be able to use any derived class instead of a parent class and have it behave in the same manner without modification".
+It ensures that a derived class does not affect the behavior of the parent class, in other words,, that a derived class must be substitutable for its base class.
+
+This principle is just an extension of the Open Closed Principle and 
+it means that we must ensure that new derived classes extend the base classes without changing their behavior.
+
