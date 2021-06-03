@@ -1653,3 +1653,60 @@ Perimeter is 180.68
 
 Area is 1034.1705
 
+31. Checked and unchecked keyword in C#
+
+A. The C# provides checked and unchecked keyword which are used to handle integral type exceptions.
+The checked keyword in C# is used to explicitly enable overflow checking for integral-type arithmetic operations and conversions.
+
+The unchecked keyword in C# is used to suppress overflow-checking for integral-type arithmetic operations and conversions.
+
+Here, overflow checking means when the value of any integral-type exceeds its range, it does not raises any exception,
+instead it will give us unexpected or garbage results.
+
+Example without Checked Keyword:
+Now, let’s see where the checked keyword can help us in making your code more useful.
+In the following example, you can see that we have three integer variables. 
+The integer variables a and b holds the maximum value that an integer can hold. 
+Then we just simply add the integer a and b and stored it in the third integer variable i.e. c.
+
+using System;
+namespace CheckedUncheckedDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 2147483647;
+            int b= 2147483647;
+
+            int c = a + b;
+
+            Console.WriteLine(c); //-2
+            Console.ReadLine();
+        }
+    }
+}
+
+Example: Using Checked Keyword
+As we use the checked keyword, it should throws runtime exception rather than displaying -2.
+
+using System;
+namespace CheckedUncheckedDemo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 2147483647;
+            int b= 2147483647;
+            int c = checked(a + b);
+            Console.WriteLine(c);
+            Console.ReadLine();
+        }
+    }
+}
+
+Unchecked keyword in C#:
+int c = unchecked(a + b); // Output: -2
+So this proves that the unchecked keyword works almost the same way as the default compiler works.
+
