@@ -821,9 +821,50 @@ A shallow copy of an Array copies only the elements of the Array, whether they a
 but it does not copy the objects that the references refer to.
 The references in the new Array point to the same objects that the references in the original Array point to.
 
-The CopyTo() static method of the Array class copies a section of an array to another array. 
+=>Array.Clone returns an object that we have to cast to an array of strings. 
+This differs from Array.CopyTo because it doesn't require a target/destination array to be available when calling the function, 
+whereas Array.CopyTo requires a destination array and an index.
+
+static void Main(string[] args)
+{
+  var source = new[] { "Ally", "Bishop", "Billy" };
+  var target = (string[])source.Clone();
+  foreach (var element in target)
+  {
+    Console.WriteLine(element);
+  }
+
+  Console.Read();
+}
+
+// output:
+
+// Ally
+// Bishop
+// Billy
+
+=>The CopyTo() static method of the Array class copies a section of an array to another array. 
 The CopyTo method copies all the elements of an array to another one-dimension array.
 The code listed in Listing 9 copies contents of an integer array to an array of object types.
+
+var source = new[] { "Ally", "Bishop", "Billy" };
+var target = new string[4];
+
+source.CopyTo(target, 1);
+
+foreach (var item in target)
+{
+  Console.WriteLine(item);
+}
+
+// output:
+
+// Ally
+// Bishop
+// Billy
+
+The code above copies all items in the source array to the target array. 
+It copies elements from the source to the target array object starting at index 1; therefore, index 0 of the target array is null.
 
 26. What are Singleton Design Patterns and how to implement them in C#? 
 
