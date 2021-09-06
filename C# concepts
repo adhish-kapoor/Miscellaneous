@@ -1781,3 +1781,23 @@ A. using String.Join() method.
 string[] animals = { "Cat", "Alligator", "Fox", "Donkey" };
 var str = String.Join(",", animals); //Cat,Alligator,Fox,Donkey
 
+35. Events v/s delegates
+A. The event is a notification mechanism that depends on delegates.An event is dependent on a delegate and cannot be created without delegates. 
+Event is a wrapper around delegate instance to prevent users of the delegate from resetting the delegate and its invocation list 
+and only allows adding or removing targets from the invocation list.
+using the event keyword, we prevent subscribers to register with an event by using = operator and thereby removing all handlers.
+An event is raised but cannot be passed as a method parameter.
+
+public delegate void Notify();
+public Notify MyDelegate;
+
+MyDelegate = MyMethod;// valid
+MyDelegate += MyMethod;// valid
+
+public delegate void Notify();
+public event Notify MyEvent;
+
+MyEvent = MyEventHandler;// Error
+MyEvent += MyEventHandler;// valid
+
+
