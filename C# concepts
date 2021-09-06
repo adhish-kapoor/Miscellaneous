@@ -1694,8 +1694,7 @@ Perimeter is 180.68
 
 Area is 1034.1705
 
-31. Checked and unchecked keyword in C#
-
+31. Checked and unchecked keyword in C# ?
 A. The C# provides checked and unchecked keyword which are used to handle integral type exceptions.
 The checked keyword in C# is used to explicitly enable overflow checking for integral-type arithmetic operations and conversions.
 
@@ -1750,4 +1749,35 @@ namespace CheckedUncheckedDemo
 Unchecked keyword in C#:
 int c = unchecked(a + b); // Output: -2
 So this proves that the unchecked keyword works almost the same way as the default compiler works.
+
+32. What is delay signing?
+A. Delay signing allows you to place a shared assembly in the GAC by signing the assembly with just the public key.
+This allows the assembly to be signed with the private key at a later stage, when the development process is complete and the component or assembly is ready to be deployed. 
+This process enables developers to work with shared assemblies as if they were strongly named, 
+and it secures the private key of the signature from being accessed at different stages of development.
+
+33. Anonymous Method in C# ?
+A. Anonymous methods in C# can be defined using the delegate keyword and can be assigned to a variable of delegate type.
+
+public delegate void Print(int value);
+
+static void Main(string[] args)
+{
+    Print print = delegate(int val) { 
+        Console.WriteLine("Inside Anonymous method. Value: {0}", val); 
+    };
+
+    print(100);
+}
+Anonymous Method Limitations:-
+-It cannot contain jump statement like goto, break or continue.
+-It cannot access ref or out parameter of an outer method.
+-It cannot have or access unsafe code.
+-It cannot be used on the left side of the is operator.
+
+34. How to get a comma separated string from an array in C#?
+A. using String.Join() method.
+
+string[] animals = { "Cat", "Alligator", "Fox", "Donkey" };
+var str = String.Join(",", animals); //Cat,Alligator,Fox,Donkey
 
