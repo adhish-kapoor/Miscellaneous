@@ -430,15 +430,17 @@ For ex. Here the indexer is defined the same way.
 
 A. Although both are used to compare two objects by value, still they both are used differently. 
 
-For ex.:
-
 int x = 10;
 int y = 10;
-Console.WriteLine( x == y);
-Console.WriteLine(x.Equals(y));
-Output:
-True
-True
+Console.WriteLine( x == y); // true
+Console.WriteLine(x.Equals(y)); //true
+
+string str1 = "London";
+string str2 = null;
+
+str1 == str2; // false
+str1.Equals(str2); // false
+str2.Equals(str1); // NullReferenceException
 
 Equality operator (==) is a reference type which means that if equality operator is used, it will return true only if both the references point to the same object.  
 
