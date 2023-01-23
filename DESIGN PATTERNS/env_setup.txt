@@ -1,0 +1,16 @@
+Q Which of the following describes the Builder pattern correctly?
+- Builder pattern builds a complex object using simple objects and using a step by step approach. This builder is independent of other objects.
+
+Q Which of the following pattern is used when creation of object directly is costly?
+- Prototype pattern is used when creation of object directly is costly.
+
+Q Which of the following describes the Chain of Responsibility pattern correctly?
+- chain of responsibility pattern creates a chain of receiver objects for a request.
+
+Q Which of the following pattern is used to reduce communication complexity between multiple objects or classes?
+- Mediator pattern is used to reduce communication complexity between multiple objects or classes.
+
+Q Which of the following describes the Strategy pattern correctly?
+- In Strategy pattern, a class behavior or its algorithm can be changed at run time.
+
+Q 
