@@ -13,4 +13,16 @@ Q Which of the following pattern is used to reduce communication complexity betw
 Q Which of the following describes the Strategy pattern correctly?
 - In Strategy pattern, a class behavior or its algorithm can be changed at run time.
 
-Q 
+Q Which of the following pattern is used to separate application's concerns?
+- MVC pattern is used to separate application's concerns.
+
+Q Which of the following pattern creates object without exposing the creation logic to the client and refer to newly created object using a common interface?
+- Factory Pattern creates object without exposing the creation logic to the client and refer to newly created object using a common interface.
+
+Q Which type of design patterns are specifically concerned with the presentation tier?
+- J2EE Design Patterns are specifically concerned with the presentation tier.
+
+Q Which of the following is the correct list of entities of Intercepting pattern?
+- Filter, Filter Chain, Target, Filter Manager, Client are the entities of Intercepting pattern.
+
+
