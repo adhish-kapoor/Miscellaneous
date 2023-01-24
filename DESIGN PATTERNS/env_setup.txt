@@ -25,4 +25,18 @@ Q Which type of design patterns are specifically concerned with the presentation
 Q Which of the following is the correct list of entities of Intercepting pattern?
 - Filter, Filter Chain, Target, Filter Manager, Client are the entities of Intercepting pattern.
 
+Q You want to minimize development cost by reusing methods? Which design pattern would you choose?
+- The delegation pattern is a design pattern in OOP where an object, instead of performing one of its stated tasks, 
+delegates that task to an associated helper object.
+
+Q You want to avoid multiple inheritance. Which design pattern would you choose?
+- Player Role Pattern
+
+Q Facade pattern promotes weak coupling between subsystem and its clients?
+- It is one of the patterns benefit.The facade pattern shields clients from subsystem classes and reduces the number of objects that clients deal with.
+A facade can be a single entry point to each subsystem level. It decouples the subsystem.
+
+Q Which design pattern defines one-to-many dependency among objects?
+- Observer pattern defines one-to-many dependency among objects so that when one object changes its state, all its dependents are notified.
+
 
