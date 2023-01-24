@@ -40,4 +40,16 @@ A facade can be a single entry point to each subsystem level. It decouples the s
 Q Which design pattern defines one-to-many dependency among objects?
 - Observer pattern defines one-to-many dependency among objects so that when one object changes its state, all its dependents are notified.
 
+Q Which pattern provides centralized request handling mechanism so that all requests are handled by single handler?
+- Front Controller pattern
+
+Q Attach additional responsiblities to an object dynamically. It provides a flexible alternative to subclass for extending functionality.
+- Decorator
+
+Q Encapsulate a request as an object, parameterize clients with different requests, queue/log requests and support undoable operation
+- Command
+
+Q What represents structure and behaviour of the pattern?
+- Form
+
 
