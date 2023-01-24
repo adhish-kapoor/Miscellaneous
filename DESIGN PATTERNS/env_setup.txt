@@ -3,6 +3,7 @@ Q Which of the following describes the Builder pattern correctly?
 
 Q Which of the following pattern is used when creation of object directly is costly?
 - Prototype pattern is used when creation of object directly is costly.
+It is used to create a duplicate object.
 
 Q Which of the following describes the Chain of Responsibility pattern correctly?
 - chain of responsibility pattern creates a chain of receiver objects for a request.
@@ -17,7 +18,7 @@ Q Which of the following pattern is used to separate application's concerns?
 - MVC pattern is used to separate application's concerns.
 
 Q Which of the following pattern creates object without exposing the creation logic to the client and refer to newly created object using a common interface?
-- Factory Pattern creates object without exposing the creation logic to the client and refer to newly created object using a common interface.
+- Factory Pattern (Creational design pattern) creates object without exposing the creation logic to the client and refer to newly created object using a common interface.
 
 Q Which type of design patterns are specifically concerned with the presentation tier?
 - J2EE Design Patterns are specifically concerned with the presentation tier.
