@@ -1,5 +1,5 @@
 Q Which of the following describes the Builder pattern correctly?
-- Builder pattern builds a complex object using simple objects and using a step by step approach. This builder is independent of other objects.
+- Builder pattern (Creational pattern) builds a complex object using simple objects and using a step by step approach. This builder is independent of other objects.
 
 Q Which of the following pattern is used when creation of object directly is costly?
 - Prototype pattern is used when creation of object directly is costly.
