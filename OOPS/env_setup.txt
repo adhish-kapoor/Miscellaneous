@@ -7,4 +7,22 @@ Q The member in a class by default is?
 Q What is correct for references?
 - References once assigned cannot be changed to refer another variable
 
+Q Which OOPs concept is allowed to reuse the code?
+- Inheritance
+
+Q Can constructors be overloaded?
+- Yes
+
+Q What is effect of negative number in field width specifier?
+- The values are displayed left justified
+
+Q Const member function does not allow to modify the value of any data member of class?
+- True
+
+Q If a class contains static variable, then every object of the class has its copy of static variable?
+- False
+
+Q Which is not a type of constructor?
+- Friend
+
 Q 
