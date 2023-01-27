@@ -48,6 +48,11 @@ Q Syntax of class template
 - Template class saves system memory
 - Template class helps in making genetic classes
 
+Q Virtual functions?
+- They must be non-static member function of the class
+- They cannot be friends
+- Constructor functions cannot be virtual
+
 Q If abstract class is inherited by derived class then ?
 - Derived class should provide definition for all the pure virtual functions
 - Derived class also becomes abstract if fails to implement pure virtual functions
@@ -60,14 +65,37 @@ Q What are things inherited from base class?
 
 Q What provides facility of using object of a class inside other classes?
 - Composition
+
  NOTE: Composition and aggregation are two types of association which is used to represent relationships between two classes.
  In aggregation, the class is made up of other existing classes that may exist independent of the child class. 
  In composition, the child class depends on its parent for existence.
 
 Q Which is an abstract data type?
-- class is used as an abstract data type as it can be used to give an implementation independent view.
+- Class is used as an abstract data type as it can be used to give an implementation independent view.
 
 Q Method overriding can be prevented by using the final as a modifier at ?
 - the start of method declaration
+
+Q When overloading binary operators using member function, it requires how many args?
+- One
+
+Q Non-member function cannot have access to the private data of the class?
+- False
+
+Q Which is not a member of the class?
+- Friend Function
+
+Q Inline functions are useful when ?
+- Function is small and to avoid function call overhead.
+
+NOTE: Inline functions do type checking for parameters
+Inline funcs can have return statement
+
+Q Which function must use reference?
+- Copy constructor
+
+Q Invoke copy constructor for class TEST ?
+- TEST T2(T1)
+- TEST T2 = T1
 
 Q 
