@@ -1,0 +1,10 @@
+Q What is used for generic programming?
+- Templates
+
+Q The member in a class by default is?
+- Private
+
+Q What is correct for references?
+- References once assigned cannot be changed to refer another variable
+
+Q 
