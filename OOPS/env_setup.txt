@@ -25,4 +25,49 @@ Q If a class contains static variable, then every object of the class has its co
 Q Which is not a type of constructor?
 - Friend
 
+Q While redefining a virtual function in derived class, if it prototype is changed then?
+- It will be overloaded by the compiler
+- Its virtual nature will be lost
+
+Q Father of C++?
+- Bjarne Stroustrup
+
+Q If base class has constructor with arguments, then is it Mandatory for derived class to have constructor and pass args to base class constructor?
+- Yes
+
+Q References vs Pointers
+- References are an alias for a variable but pointer stores the address of a variable.
+- A reference cannot be made null
+- A reference cannot be changed once initialized
+- No extra operator is needed for dereferencing of a reference
+
+Q Syntax of class template
+- template <parameters> class declaration
+
+- Template class generate objects of classes based on template type
+- Template class saves system memory
+- Template class helps in making genetic classes
+
+Q If abstract class is inherited by derived class then ?
+- Derived class should provide definition for all the pure virtual functions
+- Derived class also becomes abstract if fails to implement pure virtual functions
+- Objects of derived class cannot be created if it fails to implement pure virtual functions
+
+Q What are things inherited from base class?
+- Constructor and its destructor
+- Operator=() members
+- Friends
+
+Q What provides facility of using object of a class inside other classes?
+- Composition
+ NOTE: Composition and aggregation are two types of association which is used to represent relationships between two classes.
+ In aggregation, the class is made up of other existing classes that may exist independent of the child class. 
+ In composition, the child class depends on its parent for existence.
+
+Q Which is an abstract data type?
+- class is used as an abstract data type as it can be used to give an implementation independent view.
+
+Q Method overriding can be prevented by using the final as a modifier at ?
+- the start of method declaration
+
 Q 
