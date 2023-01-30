@@ -49,6 +49,9 @@ Q Syntax of class template
 - Template class helps in making genetic classes
 
 Q Virtual functions?
+- The virtual function must be members of some class
+- Virtual functions are accessed by using an object pointer
+- The virtual function can be a friend of another class
 - They must be non-static member function of the class
 - They cannot be friends
 - Constructor functions cannot be virtual
@@ -114,5 +117,57 @@ Q An object that packages a set of operations that have no relations to each oth
 Q Property that distinguishes an active object from one that is not active?
 - Concurrency
 
-Q 
+Q A class containing one or more pure virtual functions is known as?
+- Abstract class
+
+Q Can we create an object of abstract class type?
+- No
+
+Q Can a constructor be virtual?
+- No
+
+Q Can a destructor be virtual?
+- Yes
+
+Q Which function is not a member of a class but still has access to private data of a class?
+- Friend Function
+
+Q State the correct syntax of a friend function.
+- Class ABC{
+*****
+public:
+*****
+Friend Void xyz(); }
+
+Q Which statement tells the correct difference between Exception and Error?
+- Exceptions can be recovered by try-catch blocks, Errors cannot be recovered.
+
+Q Type of inheritance?
+- Country --- has capital -----> City
+- Hybrid inheritance is the combination of multiple and multilevel inheritances so therefore in the given diagram, lecturer, department, the student refers as multilevel inheritance and marks and students refer as multiple inheritances.
+
+Q The syntax is given below shows which type of inheritance?
+class A { 
+... .. ... }; 
+class B: public A { 
+... .. ... }; 
+class C: public B { 
+... ... ... };
+
+- Multilevel inheritance
+
+Q Which operator is used to access the static variable and static function of a class?
+- Scope Resolution Operator (::)
+
+Q The scope resolution operator is used to ____ function in the Inheritance.
+- Override
+
+Q If there are different sections of an organization such as IT, computer science, Civil, Mechanical, etc. 
+Each organization has the same attributes such as student name, roll number, year, etc. which comes under a class Student 
+then this comes under which type of inheritance?
+- Hierarchical inheritance
+
+Q How many types of functions are there in an object-oriented programming language?
+- There are 5 types of functions in Object-oriented programming languages, they are: 
+Simple functions, Static functions, Const functions, Inline functions, and Friend functions.
 
