@@ -98,4 +98,21 @@ Q Invoke copy constructor for class TEST ?
 - TEST T2(T1)
 - TEST T2 = T1
 
+Q An object that represents a useful model of a problem domain is which type of abstraction?
+- Entity Abstraction
+
+Q An object that provides a general set of operations, all of which perform the same kind of function is which type of abstraction?
+- Action Abstraction
+
+Q An object that groups together operations that are all used by some superior level of control or operations 
+that all use some junior-level set of operations is which type of abstraction?
+- Virtual Machine Abstraction
+
+Q An object that packages a set of operations that have no relations to each other is which type of abstraction?
+- Coincidental Abstraction
+
+Q Property that distinguishes an active object from one that is not active?
+- Concurrency
+
 Q 
+
