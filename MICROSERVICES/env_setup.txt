@@ -1,0 +1,83 @@
+Q The benefits of Microservices include ?
+- Improved Fault Isolation
+- Faster to build and deploy
+- Scale development: Develop, Deploy and Scale
+- Easy scaling
+
+Q The complexity of developing, testing and deploying the distributed system, 
+and handling partial failures account to the disadvantages of ?
+- Microservices
+
+Q Agile development & deployment is difficult in case of?
+- Monolithic
+
+Q The decomposition of Microservices is based on two categories, namely?
+- Business Capability and Subdomain
+
+Q Simple to develop, test, deploy and scale represents?
+- Monolithic
+
+Q The 3Cs of Microservices include?
+- Componentize
+- Collaborate
+- Connect
+
+Q Microservice is considered as a subset of SOA.
+- True
+
+Q Microservice Architecture adapts which of the following concept(s)?
+- Web Service/HTTP
+- SOA
+- OOPS
+
+Q Helps to control and limit the number of consecutive request failures that cross a threshold?
+- Circuit breaker
+
+Q Which ensures to insulate the applications by acting as a barrier?
+- API Gateway
+
+Q AWS Elastic Load Balancer (ELB) is an example of?
+- Server-side discovery
+
+Q Which acts as a database of services?
+- Service Registry
+
+Q API Gateway ensures?
+- Protocol translation
+- Composition
+- Request routing
+
+Q Netflix OSS is an example of?
+- Client-side discovery
+
+Q Scenarios where the client takes the onus and is responsible for determining the network locations of the available service instances is?
+- Client-side discovery
+
+Q Amazon EC2 Container Service is an example of?
+- Docker
+
+Q The transactions that span across multiple services are handled by?
+- Event driven Architecture
+
+Q Microservices supports different kinds of databases and this is called?
+- Polyglot persistence
+
+Q Microservices-based architecture prefers?
+- No dependency on any particular DB
+
+Q The two components of CQRS include?
+- Query and command side
+
+Q Efficient Utilization and Fast Deployment represents which pattern?
+- Multiple Services per Host pattern
+
+Q Packer.io and Boxful represent which type of pattern?
+- Service Instance per Host
+
+Q IDL stands for?
+- Interface Definition Language
+
+Q Which of these is a drawback of Multiple Services per Host pattern?
+- Risk of conflicting resource requirements/Difficult to limit resource utilization
+
+Q 
