@@ -71,8 +71,14 @@ Q The two components of CQRS include?
 Q Efficient Utilization and Fast Deployment represents which pattern?
 - Multiple Services per Host pattern
 
+Q Limited Efficient Utilization and slow deployment represent?
+- Service Instance per Host
+
 Q Packer.io and Boxful represent which type of pattern?
 - Service Instance per Host
+
+Q Kubernotes and Marathon are examples of
+- Service Instance per Container
 
 Q IDL stands for?
 - Interface Definition Language
@@ -80,4 +86,30 @@ Q IDL stands for?
 Q Which of these is a drawback of Multiple Services per Host pattern?
 - Risk of conflicting resource requirements/Difficult to limit resource utilization
 
-Q 
+Q Which among these helps in developing a microservice quickly?
+- Chassis
+
+Q Each external request is tagged with a unique identifier which is passed to all services involved in handling the request 
+and included in application logging messages.
+- Distributed tracing
+
+Q In Microservices, the API Gateway takes care of the security aspect by rendering?
+- Access tokens
+
+Q The following are all caching types
+- No Cache
+- Local & Remote Cache
+- Shared Cache
+- Distributed Cache
+
+Q Microservice Chassis takes care of the following
+- Metrics
+- Health checks
+- Logging
+- Externalized configuration
+
+Q Which pattern collects and reports all exceptions to a centralized exception tracking service?
+- Exception tracing
+
+Q Functional Decomposition is an example of
+- Microservices
