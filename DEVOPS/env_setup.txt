@@ -1,0 +1,9 @@
+Q MaaS ?
+- Metal as a Service (MAAS) provides complete automation of physical servers for data center operation efficiency on-premises.
+It is open-source software and supported by Canonical.
+
+Q Devops vs Agile?
+- DevOps is a culture, fostering collaboration amongst all participants involved in the development and maintenance of software. 
+- Agile can be described as a development methodology designed to maintain productivity and drive releases with the common reality of changing needs.
+
+Q 
