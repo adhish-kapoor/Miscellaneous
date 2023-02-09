@@ -6,4 +6,20 @@ Q Devops vs Agile?
 - DevOps is a culture, fostering collaboration amongst all participants involved in the development and maintenance of software. 
 - Agile can be described as a development methodology designed to maintain productivity and drive releases with the common reality of changing needs.
 
-Q 
+Q Ansible
+- Ansible has a master but no agents running on the client machines—all functions are performed over SSH protocol.
+- Ansible uses YAML syntax. Complex tasks are handled in configuration files called playbooks, and commands can be written in almost any programming language.
+- Ansible, the server pushes configurations to the nodes, for instantaneous deployment.
+
+Q Puppet
+- Puppet uses its own declarative language (also called domain-specific language, or DSL).
+- Puppet, you have to write the configurations in Puppet’s language
+- In Puppet, the client pulls configurations from the server.
+
+Q Orchestration
+- Orchestration and scheduling tools strive to eliminate silos, streamline processes and automate repetitive tasks 
+so that IT departments can move quickly and efficiently. 
+While similar to automation, orchestration goes beyond the scope of automation by focusing on workflows or processes rather than simple tasks.
+
+
+
