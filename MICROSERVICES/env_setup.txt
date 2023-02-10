@@ -6,6 +6,8 @@ Q The benefits of Microservices include ?
 
 Q The complexity of developing, testing and deploying the distributed system, 
 and handling partial failures account to the disadvantages of ?
+Microservices require a lot of monitoring to operate effectively
+Microservices are very difficult to manage at scale
 - Microservices
 
 Q Agile development & deployment is difficult in case of?
@@ -24,6 +26,11 @@ Q The 3Cs of Microservices include?
 
 Q Microservice is considered as a subset of SOA.
 - True
+
+Q What's the difference between a microservices-oriented architecture (MOA) and a service-oriented architecture (SOA)?
+- An SOA uses intermediation technology to facilitate communication between services
+- An MOA shares as little data as possible while an SOA shares as much data as possible
+- A developer can run a monolithic application with SOA principles
 
 Q Microservice Architecture adapts which of the following concept(s)?
 - Web Service/HTTP
@@ -93,6 +100,9 @@ Q Each external request is tagged with a unique identifier which is passed to al
 and included in application logging messages.
 - Distributed tracing
 
+Q How is distributed tracing used in microservices?
+- As a mechanism to observe the behavior of distinct system calls between and within microservices
+
 Q In Microservices, the API Gateway takes care of the security aspect by rendering?
 - Access tokens
 
@@ -113,3 +123,9 @@ Q Which pattern collects and reports all exceptions to a centralized exception t
 
 Q Functional Decomposition is an example of
 - Microservices
+
+Q How does a backing service apply to microservices?
+- It acts as a dedicated service that provides essential functionality required by a microservice
+
+Q What does the term "bounded context" mean in relation to microservices?
+- The logical domain represented by the data consumed and emitted by a microservice according to the data's purpose, structure and meaning
