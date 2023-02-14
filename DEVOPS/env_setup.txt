@@ -1,3 +1,42 @@
+Q What’s one reason to regularly merge code into a master branch instead of using feature branches?
+- Reduce integration and debugging waste later on
+
+Q Why should developers, operators, and support staff share a single ticketing system?
+- You can avoid losing data as customer information moves between systems
+
+Q What’s the point of sending regular, structured team updates to executives?
+- Share core business metrics and delivery momentum
+
+Q Why is it useful to have a regular operations review with management?
+- Stay focused on customers while improving quality of entire organization
+
+Q How can you use data to make decisions about resizing application teams?
+- Look at team velocity and understand expected impact of new team members
+
+Q Why are relationships important within a DevOps team?
+- You can build trust that comes in handy during a crisis.
+
+Q DevOps is characterized by:
+- Cultural norms and collaboration practices that enable the fast flow of high-quality work
+
+Q In which way is an enterprise DevOps different from DevOps at a small company?
+- More functional silos in place
+
+Q What is NOT a good way to patch infrastructure in a DevOps environment?
+- Log into servers and run update scripts
+
+Q A well-designed application team has no dependencies on other teams.
+- False
+
+Q Why does product documentation need a new approach in DevOps?
+- More frequent product changes result in out-of-date product docs
+
+Q How does a blue/green deployment work?
+- While “blue” is serving production, “green” is updated and starts accepting production traffic
+
+Q What does NOT belong in the application package?
+- Instructions for post-deployment manual changes
+
 Q MaaS ?
 - Metal as a Service (MAAS) provides complete automation of physical servers for data center operation efficiency on-premises.
 It is open-source software and supported by Canonical.
@@ -21,5 +60,5 @@ Q Orchestration
 so that IT departments can move quickly and efficiently. 
 While similar to automation, orchestration goes beyond the scope of automation by focusing on workflows or processes rather than simple tasks.
 
-
+Q 
 
