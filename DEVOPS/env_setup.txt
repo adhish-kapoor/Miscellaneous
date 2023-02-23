@@ -60,5 +60,9 @@ Q Orchestration
 so that IT departments can move quickly and efficiently. 
 While similar to automation, orchestration goes beyond the scope of automation by focusing on workflows or processes rather than simple tasks.
 
-Q 
+Q Facter
+- Facter is Puppet's cross-platform system profiling library. 
+It discovers and reports per-node facts, which are available in your Puppet manifests as variables.
 
+Q Hiera
+- Hiera is a built-in key-value configuration data lookup system, used for separating data from Puppet code.
