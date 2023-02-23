@@ -66,3 +66,13 @@ It discovers and reports per-node facts, which are available in your Puppet mani
 
 Q Hiera
 - Hiera is a built-in key-value configuration data lookup system, used for separating data from Puppet code.
+
+Q “DevOps is more than just a tool or a process change, it inherently requires an organisational culture shift”
+- Yes, there needs to be cultural shift within the organisation across all stakeholders to ensure a successful adoption of a DevOps approach.
+
+Q The development teams that support the Agile approach to DevOps must include staff from the operations teams to ensure:
+-Operational considerations are taken into account
+-The resultant designs of the systems will fit nicely into the business as usual environment
+
+Q Which statement best describes the relationship between DevOps and Continuous Delivery?
+- DevOps and Continuous Delivery share a background in Agile methods and LEAN thinking.
