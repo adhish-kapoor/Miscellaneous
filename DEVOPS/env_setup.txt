@@ -25,6 +25,11 @@ Q In which way is an enterprise DevOps different from DevOps at a small company?
 Q What is NOT a good way to patch infrastructure in a DevOps environment?
 - Log into servers and run update scripts
 
+Q What is a common pitfall for organizations that are automating deployments and infrastructure?
+- The first pitfall is complexity. Automating a complex, fragile manual process produces a complex, fragile automated process. 
+You first need to re-architect for deployability. 
+This means making the deployment script as simple as possible and pushing the complexity into the application code and infrastructure platform.
+
 Q A well-designed application team has no dependencies on other teams.
 - False
 
