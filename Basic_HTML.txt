@@ -1,1 +1,75 @@
-Q1 
+Q1 <!--
+The rel attribute defines the relationship between a linked resource and the current document.
+Valid on <link>, <a>, <area>, and <form>, the supported values depend on the element on which the attribute is found.
+opener : Creates supplement browsing context.
+         It allows for sharing of session storage data, which is otherwise not available to other tabs.
+-->
+<a href="" target="_blank" rel="opener">LINK</a>
+
+Q2  How to create a nested webpage in HTML?
+- The HTML iframe tag is used to display a nested webpage. 
+In other words, it represents a webpage within a webpage. The HTML <iframe> tag defines an inline frame.
+
+<iframe src="https://www.codechef.com/" height="300" width="400"></iframe>
+
+Q3 What are empty elements?
+- HTML elements with no content are called empty elements. For example: <br>, <hr> etc.
+
+Q4 What is SVG?
+- HTML SVG is used to describe the two-dimensional vector and vector/raster graphics. 
+SVG images and their behaviors are defined in XML text files. 
+So as XML files, you can create and edit an SVG image with the text editor. 
+It is mostly used for vector type diagrams like pie charts, 2-Dimensional graphs in an X, Y coordinate system.
+
+<svg width="100" height="100">    
+ <circle cx="50" cy="50" r="40" stroke="yellow" stroke-width="4" fill="red" />    
+</svg> 
+
+Q5 What are Semantic Elements?
+- A semantic element clearly describes its meaning to both the browser and the developer.Clearly defines its content.
+In HTML there are some semantic elements that can be used to define different parts of a web page:  
+
+<article>
+<aside>
+<details>
+<figcaption>
+<figure>
+<footer>
+<header>
+<main>
+<mark>
+<nav>
+<section>
+<summary>
+<time>
+
+Q6 What are block and inline elements?
+BLOCK
+- A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element.
+A block-level element always takes up the full width available (stretches out to the left and right as far as it can).
+
+Two commonly used block elements are: <p> and <div>.
+The <p> element defines a paragraph in an HTML document.
+The <div> element defines a division or a section in an HTML document.
+
+INLINE
+An inline element does not start on a new line.
+An inline element only takes up as much width as necessary.
+
+This is a <span> element inside a paragraph.
+<a>, <b>, <img>, <input>
+
+Q7 HTML Web Storage Objects ?
+- HTML web storage provides two objects for storing data on the client:
+window.localStorage - stores data with no expiration date
+window.sessionStorage - stores data for one session (data is lost when the browser tab is closed)
+
+The localStorage object stores the data with no expiration date. 
+The data will not be deleted when the browser is closed, and will be available the next day, week, or year.
+// Store
+localStorage.setItem("lastname", "Smith");
+// Retrieve
+document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+
+The sessionStorage object is equal to the localStorage object, except that it stores the data for only one session. The data is deleted when the user closes the specific browser tab.
