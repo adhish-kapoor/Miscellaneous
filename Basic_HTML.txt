@@ -72,4 +72,5 @@ localStorage.setItem("lastname", "Smith");
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 
-The sessionStorage object is equal to the localStorage object, except that it stores the data for only one session. The data is deleted when the user closes the specific browser tab.
+The sessionStorage object is equal to the localStorage object, except that it stores the data for only one session. 
+The data is deleted when the user closes the specific browser tab.
