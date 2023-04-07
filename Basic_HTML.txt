@@ -1,10 +1,5 @@
-Q1 <!--
-The rel attribute defines the relationship between a linked resource and the current document.
-Valid on <link>, <a>, <area>, and <form>, the supported values depend on the element on which the attribute is found.
-opener : Creates supplement browsing context.
-         It allows for sharing of session storage data, which is otherwise not available to other tabs.
--->
-<a href="" target="_blank" rel="opener">LINK</a>
+Q1 How to set upper limit and lower limit in <input type = number> field ?
+- <input type="number" min="5" max="20" step="0.1"/>
 
 Q2  How to create a nested webpage in HTML?
 - The HTML iframe tag is used to display a nested webpage. 
@@ -43,7 +38,7 @@ In HTML there are some semantic elements that can be used to define different pa
 <summary>
 <time>
 
-Q6 What are block and inline elements?
+Q6 What are block elements and inline elements?
 BLOCK
 - A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element.
 A block-level element always takes up the full width available (stretches out to the left and right as far as it can).
@@ -59,12 +54,20 @@ An inline element only takes up as much width as necessary.
 This is a <span> element inside a paragraph.
 <a>, <b>, <img>, <input>
 
+=> How to change the default behaviour of <div> so that it does not take full width?
+- In CSS, using Display:inline
+
+=> How to change the default behaviour of <span> so that it takes full width?
+- In CSS, using Display:block
+
 Q7 HTML Web Storage Objects ?
 - HTML web storage provides two objects for storing data on the client:
 window.localStorage - stores data with no expiration date
+                    - data is shared across tabs/new window
 window.sessionStorage - stores data for one session (data is lost when the browser tab is closed)
-
-The localStorage object stores the data with no expiration date. 
+                      - data is not shared across tabs/new window
+                      
+=> The localStorage object stores the data with no expiration date. 
 The data will not be deleted when the browser is closed, and will be available the next day, week, or year.
 // Store
 localStorage.setItem("lastname", "Smith");
@@ -72,5 +75,8 @@ localStorage.setItem("lastname", "Smith");
 document.getElementById("result").innerHTML = localStorage.getItem("lastname");
 
 
-The sessionStorage object is equal to the localStorage object, except that it stores the data for only one session. 
+=> The sessionStorage object is equal to the localStorage object, except that it stores the data for only one session. 
 The data is deleted when the user closes the specific browser tab.
+
+Q8 Display:none and Visibility:hidden ?
+
