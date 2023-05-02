@@ -76,4 +76,7 @@ Q Following k8s resources do not associate with any namespace.
 Q To program additional authentication logic besides available authenticator modules, _______________ can be used.
 - Authentication Proxy
 
+Q Watches for newly created Pods that have no Node assigned and selects a node for them to run on ?
+- kube-scheduler
+
 Q 
