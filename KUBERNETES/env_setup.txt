@@ -1,3 +1,6 @@
+Q Kubernetes is written in ?
+- GO
+
 Q What is a cluster?
 - A single system made up of servers and other resources
 
@@ -34,3 +37,43 @@ Q Which is the intended use for etcd?
 Q What is a Kubernetes volume?
 - A directory for the data accessible to containers in a pod
 
+Q This volume type can be used to share contents within containers in a pod, but will not persist beyond the life of a pod.
+- EmptyDir
+
+Q An abstraction in kubernetes which defines a logical set of pods and a policy to access them.
+- Service
+
+Q The Service Type _____________ works only if your cluster is setup to work with a cloud provider.
+- LoadBalancer
+
+Q Replication Controllers and Deployment Controllers are part of
+- Master Controller Manager
+
+Q ___________________ is a special namespace that is used for special purposes like bootstrapping a cluster
+- Kube-public
+
+Q __________________ is responsible for health check of the pods running on individual nodes
+- Kubelet
+
+Q As soon a service starts, .......... daemon running on each node add a set of environment variables on the pod for each active service.
+- Kubelet
+
+Q Cronjobs in kubernetes run in
+- UTC only
+
+Q To create a new deployment in kubernetes, use the command
+- kubectl run
+
+Q _______ manages the assigning nodes to pods depending on resource availability.
+- Scheduler
+
+Q Kubernetes uses _______________________ to connect to ouath 2 providers to offload the authentication to external services
+- OpenID connect tokens
+
+Q Following k8s resources do not associate with any namespace.
+- PersistentVolumes and Nodes
+
+Q To program additional authentication logic besides available authenticator modules, _______________ can be used.
+- Authentication Proxy
+
+Q 
