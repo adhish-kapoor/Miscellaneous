@@ -1,0 +1,36 @@
+Q What is a cluster?
+- A single system made up of servers and other resources
+
+Q In the context of Kubernetes, what is a container?
+- A package that relies on virtual isolation technology to deploy and run applications that access a shared OS kernel
+
+Q What is a pod in Kubernetes and what does it do?
+- One or more containers grouped together to share resources and run as a unit
+
+Q What is the function of a node?
+- To run pods according to master components
+
+Q Generally, what is a proxy service used for?
+- To act as an intermediary between an endpoint device and another server
+
+Q What is a kubelet?
+- A node agent that manages pods and their containers
+
+Q What is the purpose of a ReplicaSet?
+- To duplicate pods
+
+Q What is the mission of the control plane?
+- To regulate communication between Kubernetes and clusters
+
+Q Which description best fits a DaemonSet?
+- A way to run a copy of a pod on all or some nodes
+
+Q What is the function of labels?
+- To tag containers and link them together in groups
+
+Q Which is the intended use for etcd?
+- To store all the cluster data, maintain its state and provide access to critical data
+
+Q What is a Kubernetes volume?
+- A directory for the data accessible to containers in a pod
+
