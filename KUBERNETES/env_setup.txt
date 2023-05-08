@@ -79,4 +79,20 @@ Q To program additional authentication logic besides available authenticator mod
 Q Watches for newly created Pods that have no Node assigned and selects a node for them to run on ?
 - kube-scheduler
 
-Q 
+Q How can you filter the output of a kubectl command to only show a Pod called “mypod”
+- kubctl get pods/mypod
+
+Q Which of the following tools is good for installed Kubernetes in the AWS cloud?
+- kops
+
+Q Which of the following is the only stateful component on a Kubernetes Master?
+- Cluster store
+
+Q Which of the following is the preferred method of issuing work to Kubernetes?
+- Via manifest files in a declarative fashion
+
+Q How are Services linked to Pods?
+- Label Selectors 
+
+Q Which component of the Kubernetes Master is responsible for issuing work to Nodes?
+- Scheduler
