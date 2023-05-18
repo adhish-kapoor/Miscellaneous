@@ -117,3 +117,9 @@ L - Liskov Substitution Principle(LSP): LSP principle states that the objects ca
 I - Interface Segregation Principle (ISP): The ISP principle states that we can use as many interfaces specific to the client’s requirements instead of creating only one general interface. 
 Clients should not be forced to implement the functionalities that they do not require.
 D - Dependency Inversion Principle: Here, the high-level modules should not be dependent on the lower level modules or concrete implementations. Instead, they should be dependent on the abstractions
+
+Q5 Repository Design Pattern?
+- Repository Design Pattern acts as a middleman or middle layer between the rest of the application and the data access logic. 
+That means a repository pattern isolates all the data access codes from the rest of the application. The advantage of doing so is that, if you need to do any changes then you need to do it in one place. 
+Another benefit is that testing your controllers becomes easy because the testing framework need not run against the actual database access code.
+
