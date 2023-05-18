@@ -38,6 +38,9 @@ Q Facade pattern promotes weak coupling between subsystem and its clients?
 - It is one of the patterns benefit.The facade pattern shields clients from subsystem classes and reduces the number of objects that clients deal with.
 A facade can be a single entry point to each subsystem level. It decouples the subsystem.
 
+Q Which of the following design pattern provides a single class with simplified methods required by the client and delegate the call to those methods for processing the request?
+- Facade Pattern
+
 Q Which design pattern defines one-to-many dependency among objects?
 - Observer pattern defines one-to-many dependency among objects so that when one object changes its state, all its dependents are notified.
 
@@ -45,9 +48,11 @@ Q Which pattern provides centralized request handling mechanism so that all requ
 - Front Controller pattern
 
 Q Attach additional responsiblities to an object dynamically. It provides a flexible alternative to subclass for extending functionality.
+Which among the below design patterns let the user add new functionality to an existing object without altering the structure of the object?
 - Decorator
 
-Q Encapsulate a request as an object, parameterize clients with different requests, queue/log requests and support undoable operation
+Q Encapsulate a request as an object, parameterize clients with different requests, queue/log requests and support undoable operation.
+Which of the following design pattern is data-driven and the action is based on the data provided?
 - Command
 
 Q What represents structure and behaviour of the pattern?
@@ -56,5 +61,14 @@ Q What represents structure and behaviour of the pattern?
 Q What is State pattern?
 - In State Pattern, we create objects which represent various states and a context object whose behavior varies as its state object changes. 
 The State Pattern is also known as Objects for States.
+
+Q Which among the following design patterns suggests a request to pass through multiple classes but only relevant classes should execute the request?
+- Chain of Responsibility Pattern
+
+Q Which of the below design patterns is useful whenever we have to pass data with multiple attributes in a single shot from a client to a server?
+- Transfer Object Pattern
+
+Q Which of the following design pattern is used for accessing elements of a collection object sequentially?
+- Iterator Pattern
 
 Q 
