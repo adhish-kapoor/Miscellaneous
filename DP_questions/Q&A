@@ -123,3 +123,14 @@ Q5 Repository Design Pattern?
 That means a repository pattern isolates all the data access codes from the rest of the application. The advantage of doing so is that, if you need to do any changes then you need to do it in one place. 
 Another benefit is that testing your controllers becomes easy because the testing framework need not run against the actual database access code.
 
+Q6 What do you mean by Decorator Design Pattern?
+- Decorator design patterns come under the structural pattern category that allows you to add new features to existing objects without altering the structure. 
+This pattern creates a decorator class that works as a wrapper to the existing class by retaining the class methods’ signatures intact.
+
+Q7 Command Pattern?
+- The command pattern is the type of behavioral design pattern that helps transform a request into a stand-alone object that comprises all of the details about that request. 
+This one is a data-driven pattern as we use the information regarding the request by wrapping the same as an object, which is then passed to the invoker object in the form of a command.
+
+The invoker object looks for the object that can manage the command and passes it to the object for the command execution. 
+There is a client that calls the invoker to run the command. There is a command interface that acts as an abstraction to the concrete classes. 
+
