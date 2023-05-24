@@ -96,3 +96,23 @@ Q How are Services linked to Pods?
 
 Q Which component of the Kubernetes Master is responsible for issuing work to Nodes?
 - Scheduler
+
+Q You are trying to see the Pods inside of your Kubernetes cluster using kubectl get pods, but you receive an X509 SSL error upon doing so. What is most likely the problem here?
+- The certificates in the "cluster" property within your Kubeconfig are missing, or its Base64 is malformed.
+
+Q Which of these Kubernetes resource types would need to be modified to take advantage of the AWS Load Balancer Ingress Controller?
+- Ingress and Service
+
+Q Which of these kubectl commands will allow you to switch between Kubernetes namespaces?
+- We use --namespace or -n
+
+Q Which of these statements is most correct about the relationship between Kind and the Docker Registry?
+- You must create a local Docker registry and link it to the same network as your kind cluster to run local images.
+
+Q Which runtime does Kubernetes use to create and manage its containers?
+- containerd is the runtime that Kubernetes, and subsequently, kind, uses to create and manage containers. runc is used explicitly to start containers.
+
+Q Which of these problems does Kind aim to solve best?
+- Creating local Kubernetes clusters easily within Docker.
+
+
