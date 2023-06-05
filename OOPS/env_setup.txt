@@ -171,3 +171,23 @@ Q How many types of functions are there in an object-oriented programming langua
 - There are 5 types of functions in Object-oriented programming languages, they are: 
 Simple functions, Static functions, Const functions, Inline functions, and Friend functions.
 
+Q The process of taking away or removing characteristics from something in order to reduce it to a set of essential characteristics.
+- Abstraction
+
+Q OOPs concept solves problem at implementation level ?
+The fields of a class are made read-only or write-only ?
+- Encapsulation
+
+Q Access modifiers and scopes in UML class diagram
+- Public (+)
+- Private (-)
+- Protected (#)
+- Package (~)
+- Derived (/)
+- Static (underlined)
+
+2 scopes are:
+Classifiers (static members) and instances.
+
+Q 
+
