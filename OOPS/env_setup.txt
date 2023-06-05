@@ -119,11 +119,15 @@ Q Property that distinguishes an active object from one that is not active?
 
 Q A class containing one or more pure virtual functions is known as?
 - Abstract class
+An abstract class is a class that is declared abstract —it may or may not include abstract methods. Abstract classes cannot be instantiated, but they can be subclassed.
 
 Q Can we create an object of abstract class type?
 - No
 
 Q Can a constructor be virtual?
+- No
+
+Q Can a constructor be static?
 - No
 
 Q Can a destructor be virtual?
@@ -188,6 +192,16 @@ Q Access modifiers and scopes in UML class diagram
 
 2 scopes are:
 Classifiers (static members) and instances.
+
+Q Coupling is the degree to which one class knows about another class.
+
+Q Polymorphic class
+- A class that declares or inherits a virtual function is called a polymorphic class.
+
+Q If a class C is derived from class B, which is derived from class A, all through public inheritance, then a class C member function can access.
+- Protected data in A and B
+
+Q Hybrid Inheritance in C++ which is a combination of Multiple Inheritances and Single Inheritance.
 
 Q 
 
