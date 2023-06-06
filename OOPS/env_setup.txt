@@ -216,5 +216,8 @@ Q What is the difference between struct and class in terms of Access Modifier?
 Q Abstract metods
 - incase of an abstract method, you cannot use it from the same class, you need to override it from subclass and use. Therefore, the abstract method cannot be private.
 
+Q The abstract method is a method that is declared in an abstract class but is not implemented. 
+The virtual method is declared in a base class and has an implementation, but the child class may override the default implementation.
+
 Q 
 
