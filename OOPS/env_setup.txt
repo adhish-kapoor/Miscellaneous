@@ -71,7 +71,10 @@ Q What provides facility of using object of a class inside other classes?
 
  NOTE: Composition and aggregation are two types of association which is used to represent relationships between two classes.
  In aggregation, the class is made up of other existing classes that may exist independent of the child class. 
- In composition, the child class depends on its parent for existence.
+ In composition, the child class depends on its parent for existence. It represents part-of relationship.
+ 
+ An IS-A relationship is inheritance. The classes which inherit are known as sub classes or child classes. 
+ On the other hand, HAS-A relationship is composition.
 
 Q Which is an abstract data type?
 - Class is used as an abstract data type as it can be used to give an implementation independent view.
@@ -161,6 +164,7 @@ class C: public B {
 - Multilevel inheritance
 
 Q Which operator is used to access the static variable and static function of a class?
+Which operator allows defining the member functions of a class outside the class?
 - Scope Resolution Operator (::)
 
 Q The scope resolution operator is used to ____ function in the Inheritance.
@@ -202,6 +206,15 @@ Q If a class C is derived from class B, which is derived from class A, all throu
 - Protected data in A and B
 
 Q Hybrid Inheritance in C++ which is a combination of Multiple Inheritances and Single Inheritance.
+
+Q In a class definition, data or functions designated private are accessible to?
+- To member functions of that class.
+
+Q What is the difference between struct and class in terms of Access Modifier?
+- by default all the struct members are public while by default class members are private.
+
+Q Abstract metods
+- incase of an abstract method, you cannot use it from the same class, you need to override it from subclass and use. Therefore, the abstract method cannot be private.
 
 Q 
 
