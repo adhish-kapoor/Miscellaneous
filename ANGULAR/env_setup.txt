@@ -1,0 +1,95 @@
+Q Templates in Angular?
+- In Angular, templates contain Angular-specific elements and attributes. 
+These are written with HTML and combined with information coming from the model and controller, which are further rendered to provide the user's dynamic view.
+
+Q What are the different Lifecycle hooks of Angular?
+- ngOnChanges( ): This method is called when one or more input properties of the component are changed. 
+The hook receives a SimpleChanges object containing the previous and current values of the property.
+- ngOnInit( ): This is the second lifecycle hook. It is called once, after the ngOnChanges hook. 
+It is used to initialize the component and sets the input properties of the component.
+- ngDoCheck( ): This hook is called after ngOnChanges and ngOnInit and is used to detect and act on changes that Angular cannot detect.
+In this hook, we can implement our change detection algorithm.
+- ngAfterContentInit( ): This hook is called after the first ngDoCheck hook. 
+This hook responds after the content gets projected inside the component.
+- ngAfterContentChecked( ): This hook is called after ngAfterContentInit and every subsequent ngDoCheck. 
+It responds after the projected content is checked.
+- ngAfterViewInit( ): This hook is called after a component's view or initializing a child component's view.
+- ngAfterViewChecked( ): This hook is called after ngAfterViewInit. It responds after the component's view or when the child component's view is checked.
+- ngOnDestroy( ): This hook is called just before Angular destroys the component. This is used to clean up the code and detach event handlers.
+
+Q What is the key difference between a constructor and ngOnInit?
+- Constructor is a default method in TypeScript classes that are normally used for the initialization purpose. 
+On the other hand, the ngOnInit is specifically an Angular method and is used to define Angular bindings. 
+Even though constructors are getting called first, it is always preferred to move all of your Angular bindings to the ngOnInit method.
+export class App implements OnInit{  
+  constructor(){  
+     //called first time before the ngOnInit()  
+  }  
+  ngOnInit(){  
+     //called after the constructor and called  after the first ngOnChanges()  
+  }  
+}  
+
+Q What is AOT in Angular?
+- In Angular, AOT stands for Ahead-Of-Time compiler. 
+It is used to convert your Angular HTML and TypeScript code into efficient JavaScript code during the build phase before the browser downloads and runs that code. 
+By compiling the application during the build process provides a faster rendering in the browser.
+
+Q What is JIT in Angular?
+- In Angular, JIT stands for Just-in-Time compiler. The JIT compiler provides a dynamic translation or run-time compilation, 
+which provides a way of executing computer code that involves compilation during the execution of a program at run time rather than before execution.
+
+Q What are directives in Angular?
+- A directive is a class in Angular that is declared with a @Directive decorator. 
+Every directive has its own behavior, and you can import them into various components of an application.
+
+There are mainly three types of directives in Angular:
+=> Component Directives: The component directives are used to form the main class in directives. 
+To declare these directives, we have to use the @Component decorator instead of @Directive decorator. These directives have a view, a stylesheet and a selector property.
+
+=> Structural directives: These directives are generally used to manipulate DOM elements. 
+The structural directive has a ' * ' sign before them. We can apply these directives to any DOM element.
+*ngIf *ngFor are Structural Directive
+
+=> Attribute Directives: The attribute directives are used to change the look and behavior of a DOM element.
+
+Q What do you understand by RouterOutlet and RouterLink?
+- A RouterOutlet is a directive from the router library that acts as a placeholder.
+It marks the spot in the template where the Router should display the components for that outlet. Router outlet is used as a component.
+Syntax:
+<router-outlet></router-outlet>
+
+On the other hand, a RouterLink is a directive on the anchor tags that gives the router control over those elements. 
+Since the navigation paths are fixed, you can assign string values to router-link directive as below,
+
+Syntax:
+<h1>Angular Router</h1>  
+<nav>  
+  <a routerLink="/todosList" >List of todos</a>  
+  <a routerLink="/completed" >Completed todos</a>  
+</nav>  
+<router-outlet></router-outlet>  
+
+Q What is the best way to perform Error handling in Angular?
+- Error is when the request fails on the server or fails to reach the server due to network issues. In this condition, HttpClient returns an error object instead of a successful response. 
+To resolve this issue, we must handle the component by passing the error object as a second callback to the subscribe() method.
+
+fetchUser() {  
+  this.userService.getProfile()  
+    .subscribe(  
+      (data: User) => this.userProfile = { ...data }, // success path  
+      error => this.error = error // error path  
+    );  
+}  
+
+Q Is it possible to make an angular application to render on the server-side?
+- Yes, we can make an angular application to render on the server-side. 
+Angular provides a technology Angular Universal that makes you able to render applications on the server-side.
+
+Following are the benefits of using Angular Universal:
+Better User Experience: It enables users to see the view of the application instantly.
+
+Better SEO: Angular Universal ensures that the content is available on every search engine leading to better SEO.
+
+Load Faster: Angular Universal ensures that the render pages available to the browsers sooner to make the loading faster server-side application loads faster.
+
