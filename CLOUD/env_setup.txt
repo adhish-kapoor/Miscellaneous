@@ -41,6 +41,6 @@ Q XYZ Company deploy their applications in multiple AZs within single region. Do
 Q XYZ Company deploy their applications in multiple AZs within single region. Doing so will provide applications Disaster Recovery?
 - No
 
-Q Q Please select the wrong statements
+Q Please select the wrong statements
 - Security is sole responsibility of cloud provider
 - All regions has the same pricing of services
