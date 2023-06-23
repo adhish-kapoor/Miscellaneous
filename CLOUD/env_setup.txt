@@ -1,0 +1,46 @@
+Q XYZ Company plan to migrate several servers from an on-premises network to cloud. 
+You need to identify the primary benefit of using a public cloud service for the servers. What should you identify?
+- The public cloud is a shared entity whereby multiple corporations each use a portion of the resources in the cloud
+
+Q You have an on-premises network that contains 100 servers. You need to recommend a solution that provides additional resources to your users. 
+The solution must minimize capital and operational expenditure costs. What should you include in the recommendation?
+- Hybrid cloud
+
+Q XYZ Company plan to migrate a web application to cloud. The web application is accessed by external users. 
+You need to recommend a cloud deployment solution to minimize the amount of administrative effort used to manage the web application. 
+What should you include in the recommendation?
+- PaaS
+
+Q XYZ company hosts an accounting named App1 that is used by all the customers of the company. 
+App1 has low usage during the first three weeks of each month  and very high usage in the last week.
+Which benefit of cloud services supports cost management for this type of usage pattern?
+- Elasticity
+
+Q What are the two characteristics of the public cloud?
+- Metered pricing
+- Self-service management
+
+Q An organisation that hosts its infrastructure _____ no longer requires a data centre
+- in a public cloud
+
+Q When there is a SaaS solution, the user/customer is responsible for ____
+- Configuring the SaaS solution
+
+Q You have 1000 VMs hosted on a hyper-V hosts in a data centre. You plan to migrate all the VMs to an Azure pay-as-you-go subscription.
+You need to identify which expenditure model to use for the planned Azure solution. Which expenditure model should you identify?
+- On-demand
+
+Q XYZ Company has plans to deploy multiple custom applications (e.g. required legacy softwares etc) to Azure. 
+Each application will have several prerequisite  applications, operating systems, and services installed. 
+You need to recommend  a cloud deployment solution for all the applications. What should you recommend?
+- IaaS
+
+Q XYZ Company deploy their applications in multiple AZs within single region. Doing so will provide applications high availability?
+- Yes
+
+Q XYZ Company deploy their applications in multiple AZs within single region. Doing so will provide applications Disaster Recovery?
+- No
+
+Q Q Please select the wrong statements
+- Security is sole responsibility of cloud provider
+- All regions has the same pricing of services
