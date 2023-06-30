@@ -81,3 +81,18 @@ Q The development teams that support the Agile approach to DevOps must include s
 
 Q Which statement best describes the relationship between DevOps and Continuous Delivery?
 - DevOps and Continuous Delivery share a background in Agile methods and LEAN thinking.
+
+=================
+Q Extension of manifest file for Nuget file?
+- .nuspec is XML manifest file
+
+Q What are hosted agents in Azure DevOps?
+- An agent that you set up and manage on your own to run jobs is a self-hosted agent. 
+You can use self-hosted agents in Azure Pipelines or Azure DevOps Server, formerly named Team Foundation Server (TFS). 
+Self-hosted agents give you more control to install dependent software needed for your builds and deployments.
+
+Q How do I view Azure DevOps logs?
+- You can view logs by navigating to the pipeline run summary and selecting the job and task. 
+If a certain task is failing, check the logs for that task.
+
+Q 
