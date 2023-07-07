@@ -1,0 +1,34 @@
+Q Which options are not a disaster recovery type:
+- Standby
+- Single site
+
+Q Your company needs to host a database in their AWS environment but needs to have control over patching. Which is the best choice?
+- EC2 instance
+
+Q What helps you aggregate your logs from your EC2 instance?
+- CloudWatch logs
+
+Q Which statements below are correct regarding scalability?
+- A scalable system distributes traffic based on demand.
+- A scalable system distributes traffic to instances with the least load.
+
+Q Which of the following support plans gives access to all the checks in the AWS Trusted Advisor service?
+- Business 
+- Enterprise
+
+Q What AWS managed database provides processing power that is up to five times faster than a traditional MySQL database?
+- Aurora
+
+Q You have a dedicated web server and database that remains idle but sometimes has higher activity. What can you architect to improve your cost-efficiency?
+- Configure serverless architecture leveraging Lambda
+
+Q When using on-demand instances, which statement is false?
+- You must pay the termination fees if you terminate the instance.
+
+Q Your company created an incident response plan six months ago, and it is regularly used with no updates to the plan itself.
+- The response plan does not include new services.
+
+Q For auditing purposes, your company now wants to monitor all API activity for all regions in your AWS environment. What can you use to fulfill this new requirement? 
+- Ensure one CloudTrail is enabled for all regions.
+
+Q 
