@@ -44,6 +44,34 @@ Q In the AWS Shared Responsibility Model, which of the following examples are th
 Q What AWS service allows you to quickly provision a test environment to investigate possible breaches into your EC2 instance?
 - CloudFormation
 
-Q 
+Q What can you use to keep logs in an S3 bucket for a specific amount of time and then delete the logs?
+- Configure lifecycle rules for the S3 bucket.
 
+Q You have a new security requirement to encrypt your DynamoDB databases during the creation of the databases. What service would fulfill this new requirement?
+- Encrypt DynamoDB using KMS during its creation.
+
+Q In the AWS Shared Responsibility Model, which of the following is not your responsibility as the customer?
+- Decommissioning your data
+
+Q According to the AWS Shared Responsibility Model, what is AWS responsible for when you create a security group?
+- Making sure the security group rules are applied immediately
+- Making sure the security groups are linked to the Elastic Network Interface (ENI) of the EC2 instance
+
+Q What AWS service can do standard SQL queries on data in an S3 bucket?
+- Athena
+
+Q What is the total volume of data you can store in S3?
+- Virtually unlimited storage
+
+Q Which option below allows you to call AWS services from programming languages?
+- AWS SDK
+
+Q Your company has asked you to architect a new two-tier highly available web application in your AWS environment. 
+The application needs a storage layer to store the artifacts (photos, videos, etc.) and needs to be cost-efficient. Which service below is the best choice?
+- S3
+
+Q What AWS service is a fully managed petabyte-scale data warehouse service in AWS?
+- Redshift
+
+Q 
 
