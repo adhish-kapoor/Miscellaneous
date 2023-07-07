@@ -31,4 +31,19 @@ Q Your company created an incident response plan six months ago, and it is regul
 Q For auditing purposes, your company now wants to monitor all API activity for all regions in your AWS environment. What can you use to fulfill this new requirement? 
 - Ensure one CloudTrail is enabled for all regions.
 
+Q How do you encrypt CloudTrail logs?
+- No action is needed since they are automatically encrypted
+
+Q Which of the following IAM options allows an application to write data to S3 for backups?
+- Role
+
+Q In the AWS Shared Responsibility Model, which of the following examples are the responsibility of AWS?
+- Decommissioning data
+- Securing edge locations
+
+Q What AWS service allows you to quickly provision a test environment to investigate possible breaches into your EC2 instance?
+- CloudFormation
+
 Q 
+
+
