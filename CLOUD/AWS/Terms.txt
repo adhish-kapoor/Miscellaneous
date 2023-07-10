@@ -44,6 +44,9 @@ Q In the AWS Shared Responsibility Model, which of the following examples are th
 Q What AWS service allows you to quickly provision a test environment to investigate possible breaches into your EC2 instance?
 - CloudFormation
 
+Q What service allows you to build your infrastructure as code?
+- CloudFormation
+
 Q What can you use to keep logs in an S3 bucket for a specific amount of time and then delete the logs?
 - Configure lifecycle rules for the S3 bucket.
 
@@ -73,5 +76,46 @@ The application needs a storage layer to store the artifacts (photos, videos, et
 Q What AWS service is a fully managed petabyte-scale data warehouse service in AWS?
 - Redshift
 
-Q 
+Q AWS Trusted Advisor provides insight into which five categories of an AWS account?
+- Performance, fault tolerance, cost optimization, security, and service limits
+
+Q Which choice below allows you to carve out a portion of the AWS cloud?
+- VPC
+
+Q What AWS service helps process a large number of data sets?
+- EMR (Elastic MapReduce)
+
+Q RDS benefit ?
+- Automated patches and Backups
+
+Q Edge locations features ?
+- Used with CloudFront
+- Cache common content
+- Distribute content to users
+
+Q What are the two main security layers/firewalls inside your VPC?
+- Security groups act as a firewall on the instance level
+- Network Access Control Lists (NACLs) allows or denies specific inbound or outbound traffic at the subnet level
+
+Q Manage anbd consolidate multiple AWS accounts ?
+- Organizations
+
+Q Cost comparison of resources on-premises v/s AWS cloud?
+- TCO calculator
+
+Q What tool is best for forecasting your AWS spending?
+- AWS Cost explorer
+
+NOTE: The TCO calculator helps you estimate the cost savings of using AWS; 
+      Cost Explorer help you analyze current AWS usage charges.
+
+Q What tool would you use to get an estimated monthly cost for your environment?
+- Simple Monthly Calculator
+
+Q You have EC2 instances running at 90% utilization and you expect this to continue for at least a year. 
+What type of EC2 instance would you choose to ensure your costs stay at a minimum?
+- Reserved instances
+
+Q What is the best benefit of consolidated billing?
+- Gain a volume discount for usage across all your AWS accounts
 
