@@ -10,4 +10,10 @@ K-means clustering
 
 - Regression - To do a regression analysis, data science teams will typically plot their data on an XY diagram. 
 
+BAGGING and STACKING are the ways to create ensembles (group performing together)
+- Bagging is when you use several versions of the same ML algorithm
+- Stacking is when you use several different ML algorithms
+
+
+
 
