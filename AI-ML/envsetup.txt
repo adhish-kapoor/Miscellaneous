@@ -1,5 +1,6 @@
 - Supervised learning means classifying data based on labels.
 K-nearest neighbor - Classify unknown data against the closest data that you do know.
+Naive Bayes - Used to classify data independent of each other.
 
 - Unsupervised learning means clustering data. 
 Unsupervised learning just tries to create clusters based on what it already sees in the data.
