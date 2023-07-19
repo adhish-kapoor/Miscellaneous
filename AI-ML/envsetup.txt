@@ -1,6 +1,7 @@
+SUPERVISED and UNSUPERVISED learning 
 - Supervised learning means classifying data based on labels.
 K-nearest neighbor - Classify unknown data against the closest data that you do know.
-Naive Bayes - Used to classify data independent of each other.
+Naive Bayes - Used to classify data having predictors independent of each other.
 
 - Unsupervised learning means clustering data. 
 Unsupervised learning just tries to create clusters based on what it already sees in the data.
@@ -11,8 +12,15 @@ K-means clustering
 - Regression - To do a regression analysis, data science teams will typically plot their data on an XY diagram. 
 
 BAGGING and STACKING are the ways to create ensembles (group performing together)
-- Bagging is when you use several versions of the same ML algorithm
-- Stacking is when you use several different ML algorithms
+- Bagging is when you use several versions of the same ML algorithm with different data sets to improve the prediction power
+- Stacking is when you use several different ML algorithms “stacked” on top of each other to improve the predictions.
+
+- BIAS and VARIANCE 
+- Bias is the gap between predicted value and actual outcome
+- Variance is when the predicted values are scattered all over the place
+
+
+
 
 
 
