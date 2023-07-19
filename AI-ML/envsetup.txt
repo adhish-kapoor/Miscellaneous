@@ -1,0 +1,12 @@
+- Supervised learning means classifying data based on labels.
+K-nearest neighbor - Classify unknown data against the closest data that you do know.
+
+- Unsupervised learning means clustering data. 
+Unsupervised learning just tries to create clusters based on what it already sees in the data.
+K-means clustering 
+
+- Reinforcement learning can create strategies to better find patterns in the data. A reinforcement system might invent a strategy to encourage customers to purchase something new.
+
+- Regression - To do a regression analysis, data science teams will typically plot their data on an XY diagram. 
+
+
