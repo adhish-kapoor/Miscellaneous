@@ -69,8 +69,13 @@ Q Your company is based in X and will be running a virtual server for Y. What fa
 Q You have to run a number of services to support an application. Which of the following is a good deployment model?
 - Use containers in a managed cluster
 
-Q You have created a VM. Which of the following system administration operations are you allowed to perform on it?
-- 
+Q In the hierarchy of App Engine components, what is the lowest-level component?
+- Instance
+
+Q What command should you use to deploy an App Engine app from the command line?
+- gcloud app deploy
+
+Q 
 
 
 
