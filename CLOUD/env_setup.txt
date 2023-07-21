@@ -31,8 +31,8 @@ You need to identify which expenditure model to use for the planned Azure soluti
 - On-demand
 
 Q XYZ Company has plans to deploy multiple custom applications (e.g. required legacy softwares etc) to Azure. 
-Each application will have several prerequisite  applications, operating systems, and services installed. 
-You need to recommend  a cloud deployment solution for all the applications. What should you recommend?
+Each application will have several prerequisite applications, operating systems, and services installed. 
+You need to recommend a cloud deployment solution for all the applications. What should you recommend?
 - IaaS
 
 Q XYZ Company deploy their applications in multiple AZs within single region. Doing so will provide applications high availability?
@@ -44,3 +44,33 @@ Q XYZ Company deploy their applications in multiple AZs within single region. Do
 Q Please select the wrong statements
 - Security is sole responsibility of cloud provider
 - All regions has the same pricing of services
+============
+Q You need serverless computing for file processing and running the backend of a website;
+which two products can you choose from Google Cloud Platform?
+- App engine and Cloud functions
+
+Q You have been asked to design a storage system for a web application that allows users to upload large data files to be analyzed by a business intelligence workflow. The files should be stored in a high-availability storage system. File system functionality is not required. Which storage system in Google Cloud Platform should be used?
+- Object Storage
+
+Q Your client's transactions must access a drive attached to a VM that allows for random access to parts of files. 
+What kind of storage does the attached drive provide?
+- Block storage
+
+Q You are deploying a new relational database to support a web application. 
+Which type of storage system would you use to store data files of the database?
+- Block storage
+
+Q You have been asked to set up network security in a virtual private cloud. Your company wants to have multiple subnet works and limit traffic between the subnet works. Which net-work security control would you use to control the flow of traffic between subnets?
+- Firewall
+
+Q Your company is based in X and will be running a virtual server for Y. What factor determines the unit per minute cost?
+- The characteristics of the server
+
+Q You have to run a number of services to support an application. Which of the following is a good deployment model?
+- Use containers in a managed cluster
+
+Q You have created a VM. Which of the following system administration operations are you allowed to perform on it?
+- 
+
+
+
