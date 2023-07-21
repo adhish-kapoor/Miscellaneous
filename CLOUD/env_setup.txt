@@ -75,7 +75,14 @@ Q In the hierarchy of App Engine components, what is the lowest-level component?
 Q What command should you use to deploy an App Engine app from the command line?
 - gcloud app deploy
 
-Q 
+Q A newly hired cloud engineer is trying to understand what VMs are running in a particular project.
+How could the engineer get summary information on each VM running in a project?
+- gcloud compute instances list
+
+Q When creating a VM using the command line, how should you specify labels for the VM?
+- Use the --labels option with labels in the format of KEYS=VALUE.
+
+
 
 
 
