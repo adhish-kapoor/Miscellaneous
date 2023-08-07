@@ -62,6 +62,7 @@ Q What represents structure and behaviour of the pattern?
 
 Q What is State pattern?
 - In State Pattern, we create objects which represent various states and a context object whose behavior varies as its state object changes. 
+Example: Vending machine
 The State Pattern is also known as Objects for States.
 
 Q Which among the following design patterns suggests a request to pass through multiple classes but only relevant classes should execute the request?
