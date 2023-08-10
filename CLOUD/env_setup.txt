@@ -81,6 +81,23 @@ How could the engineer get summary information on each VM running in a project?
 
 Q When creating a VM using the command line, how should you specify labels for the VM?
 - Use the --labels option with labels in the format of KEYS=VALUE.
+=================
+Q Network security is a part of ?
+- Encryption in flight
+
+Q What does security as code mean?
+- that we are adding custom security to an application
+
+Q Physical data storage is related to?
+- Encryption at rest
+
+Q Audit is an example of 
+- a third-party security tool
+
+Q What provides a comprehensive view of your security alerts and security status across your AWS accounts?
+- Security Hub
+
+Q 
 
 
 
