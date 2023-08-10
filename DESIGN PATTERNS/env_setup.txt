@@ -46,6 +46,12 @@ Q Which of the following design pattern provides a single class with simplified 
 Q Which design pattern defines one-to-many dependency among objects?
 - Observer pattern defines one-to-many dependency among objects so that when one object changes its state, all its dependents are notified.
 
+Q The Observer pattern has two components; they are the subscriber and the publisher. Which type of relationship exists with the subscriber and publisher?
+- Publishers post messages to a message broker, and subscribers register subscriptions to the message broker
+
+Q The Observer pattern uses the Subject interface. Which three methods comprise the Subject interface?
+- RegisterObserver method, RemoveObserver method, and NotifyObserver method
+
 Q Which pattern provides centralized request handling mechanism so that all requests are handled by single handler?
 - Front Controller pattern
 
