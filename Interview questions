@@ -48,3 +48,35 @@ If an API returns more than 10,000 customer records and takes 18–20 seconds, h
 
 =============================================
 
+
+A. abstract class defines what an object is (identity and shared state), whereas an interface defines what an object can do (a behavioral contract)
+
+Feature	
+Abstract Class	Interface
+Inheritance	
+Single inheritance only (a class can inherit from only one class).	
+Multiple implementation (a class can implement multiple interfaces).
+
+Instance Fields	
+Can contain state/instance fields (variables).	
+Cannot contain instance fields.
+
+Constructors	
+Can have constructors to initialize base state.	
+Cannot have constructors.
+
+Access Modifiers	
+Can use any modifier (public, protected, private, etc.).	
+Historically strictly public. Modern C# allows modifiers for default implementations.
+
+Default Logic	
+Can provide fully implemented concrete methods.	
+Can contain Default Interface Methods (introduced in C# 8.0).
+
+Performance	
+Slightly faster direct method invocation.	
+Marginally slower due to interface lookup tables
+
+
+
+
