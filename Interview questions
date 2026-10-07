@@ -1,0 +1,50 @@
+Q1 - Custom middleware
+Q2 - thread safety in C# Singleton pattern
+Q3 - The most reliable SQL query to get the second-highest distinct salary is:
+SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);
+
+=> second-highest distinct salary using DENSE_RANK()
+SELECT name, salary
+FROM (
+    SELECT name, salary,
+           DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+    FROM employees
+) t
+WHERE rnk = 2;
+
+
+================================
+Caching / Distributed Systems 
+
+What is Redis Cache? 
+What is the difference between Redis Cache and MemoryCache? 
+Which is more useful: Redis or MemoryCache? 
+Have you worked on microservices or distributed systems? 
+What are important considerations in a distributed/microservices architecture? 
+=============================
+
+C# / .NET 
+
+What is the difference between ref, out and in in C#? 
+What are static methods? 
+Can an abstract class have static methods? 
+Can an abstract class have a constructor? 
+Can an abstract class be private? 
+What is inheritance in C#? 
+What are the types of inheritance supported in C#? 
+What is the difference between method overloading and method overriding? 
+Can you write a program to check whether a string is a palindrome without using Reverse( )? 
+=========================================================================
+
+REST API / ASP.NET 
+
+How can we make an API a RESTful API? 
+How can we secure a REST API? 
+What is JWT authentication? 
+How can API latency be reduced from around 2 seconds to 350 milliseconds? 
+If an API response increases from 200 milliseconds to 5 seconds, how would you troubleshoot it? 
+How would you troubleshoot an API that suddenly becomes slow? 
+If an API returns more than 10,000 customer records and takes 18–20 seconds, how would you optimize it? 
+
+=============================================
+
