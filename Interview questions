@@ -108,5 +108,10 @@ Server-side request validation: Sanitize URLs and hostnames to reduce SSRF risks
 Principle of least privilege: Limit access to only what is necessary for each user or service 
 
 ========================================================
+Failover is the immediate, often automated process of shifting system operations from a primary environment to a secondary or backup infrastructure when an outage, hardware failure, or cyberattack occurs.
+Failback is the deliberate, planned process of returning those operations, workloads, and data back from the backup environment to the original (or newly restored) primary system once the root issue is fixed.
+
+====================================================
+
 
 
