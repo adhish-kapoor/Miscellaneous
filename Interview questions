@@ -154,4 +154,111 @@ var authors = await _context.Authors
     .ToListAsync();
 ===============================================
 
+In .NET Core (and .NET 8+) running on Azure, logging is implemented via the built-in ILogger abstraction and seamlessly integrated with cloud-native monitoring through Azure Monitor Application Insights.
+
+
+1. Architectural Blueprint
+Instead of writing logs to local files, the best practice is to pipe logs to the standard console output in JSON format or stream them directly via an SDK.
+
+
+2. Code Implementation
+To integrate your .NET application with Azure, you rely on the official Application Insights Telemetry SDK.
+
+Step 1: Install NuGet Packages
+Add the tracking and logging extensions to your microservice project:
+• Microsoft.ApplicationInsights.AspNetCore
+• Serilog.Extensions.Logging & Serilog.Sinks.ApplicationInsights (Optional, if using Serilog for custom JSON formatting).
+
+Step 2: Register Services (Program.cs)
+Register Application Insights in your service collection. It automatically hooks into the native .NET ILogger pipeline.
+
+var builder = WebApplication.CreateBuilder(args);
+// Add Application Insights Telemetry
+// This automatically captures requests, dependencies, and exceptions
+builder.Services.AddApplicationInsightsTelemetry(options =>
+{
+    // The connection string is read implicitly from configuration (APPLICATIONINSIGHTS_CONNECTION_STRING)
+});
+
+var app = builder.Build();
+
+
+Step 3: Inject and Use ILogger
+Inject the standard ILogger<T> into your controllers or services. Structured logging uses placeholder tokens to preserve parameters.
+
+[ApiController]
+[Route("[controller]")]
+public class OrderController : ControllerBase
+{
+    private readonly ILogger<OrderController> _logger;
+
+    public OrderController(ILogger<OrderController> logger)
+    {
+        _logger = logger;
+    }
+
+    [HttpPost]
+    public IActionResult CreateOrder([FromBody] OrderRequest request)
+    {
+        // Structured logging: Azure extracts OrderId and CustomerId as searchable metadata fields
+        _logger.LogInformation("Processing order {OrderId} for customer {CustomerId}.", request.OrderId, request.CustomerId);
+
+        try
+        {
+            // Business logic here
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            // Pass the exception object as the first parameter so the full stack trace is indexed
+            _logger.LogError(ex, "Failed to process order {OrderId}.", request.OrderId);
+            return StatusCode(500);
+        }
+    }
+}
+
+
+
+3. Configuration (appsettings.json)
+Control your log verbosity per environment. For Azure production, you typically want to filter out framework-level Information logs to reduce data ingestion costs
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    },
+    "ApplicationInsights": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Warning"
+      }
+    }
+  },
+  "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=https://..."
+}
+
+
+4. Distributed Tracing in Azure
+When microservices call each other via HTTP (HttpClient) or messaging queues (like Azure Service Bus), .NET and Application Insights handle request correlation out of the box.
+• W3C Trace Context: .NET automatically injects standard headers (traceparent, tracestate) into HTTP requests.
+• End-to-End Transaction Map: When downstream services receive these headers, they attach their logs to the same Operation ID. 
+In the Azure Portal, you can click on an error or a trace and view the exact hierarchical tree of every microservice call involved in that timeline.
+
+
+5. Querying Logs in Azure Portal
+Once logs are captured, you query them inside your Log Analytics Workspace using Kusto Query Language (KQL).
+• Search for custom text or properties:
+traces
+| where timestamp > ago(1h)
+| where severityLevel == 2 // 2 = Information
+| extend orderId = customDimensions.Prop__OrderId
+| where orderId == "ORD-12345"
+
+Find exceptions linked to specific requests:
+exceptions
+| where timestamp > ago(24h)
+| order by timestamp desc
+| project timestamp, operation_Id, outerMessage, innermostMessage
+=========================================================================================
 
