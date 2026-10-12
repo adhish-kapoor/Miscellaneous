@@ -132,14 +132,12 @@ Total Queries Executed: 1 + 100 = 101 queries to display a simple list.
 If you have 10,000 records, it will fire 10,001 queries, crashing performance in production.
 
 🛑 Why Does It Happen?
-
 The problem most frequently occurs when using Object-Relational Mapping (ORM) tools (like Hibernate, Entity Framework, Django ORM, or ActiveRecord) that utilize Lazy Loading.
 • Lazy loading delays loading related data until the application explicitly asks for it (e.g., calling post.author.name).
 • When this property access happens inside a loop iterating over the parent records, it silently hammers the database with dozens or hundreds of individual requests.
 
 
 🛠️ How to Fix It
-
 The standard solution is to instruct your application to load the parent and child records at the same time, a concept known as Eager Loading.
 
 Strategy | How it Works	 | Example Framework Methods
@@ -148,5 +146,12 @@ Pre-fetching / Batching	 | Executes exactly 2 queries: One to get all parent row
 
 By switching to these methods, you reduce your database footprint from N+1 queries down to just 1 or 2 queries, instantly restoring application speed.
 
+Use the .Include() extension method to build your relation execution plan. 
+If child collections are massive, chain .AsSplitQuery() to prevent a performance-degrading Cartesian product explosion
+// EF Core syntax
+var authors = await _context.Authors
+    .Include(a => a.Books)
+    .ToListAsync();
+===============================================
 
 
