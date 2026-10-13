@@ -262,3 +262,32 @@ exceptions
 | project timestamp, operation_Id, outerMessage, innermostMessage
 =========================================================================================
 
+In ASP.NET Core, middleware runs strictly in the order it is added in Program.cs, and correct ordering is essential—for example, UseRouting() must come before UseAuthorization(), 
+and UseAuthentication() must always precede UseAuthorization() .
+Why Middleware Order Matters
+The pipeline is executed top‑to‑bottom for requests and bottom‑to‑top for responses.
+Each middleware can short‑circuit the pipeline.
+Misordering causes issues like broken CORS, missing authentication, wrong client IPs, or HTTPS redirect loops. 
+
+var app = builder.Build();
+
+app.UseExceptionHandler("/error");
+app.UseHsts();
+
+app.UseForwardedHeaders();
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseCors();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+======================================================================================================
+
