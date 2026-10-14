@@ -12,6 +12,19 @@ FROM (
 ) t
 WHERE rnk = 2;
 
+===========================
+
+1. Association ("Uses-a")
+Association is the most basic relationship where two classes interact with each other but remain entirely independent. There is no concept of ownership, and both objects have their own separate life cycles.
+
+2. Aggregation ("Has-a")
+Aggregation is a specialized, weak form of association where a parent class owns a child class, but they can still exist independently. If the parent object is destroyed, the child object survives.
+In C#, this is typically achieved through Dependency Injection—passing an existing object into a constructor or setting it via a property.
+
+3. Composition ("Part-of")
+Composition is a strong form of aggregation with exclusive ownership. The child object cannot exist meaningfully without the parent. 
+The parent class is fully responsible for managing the instantiation and destruction of the child object.
+In C#, you implement composition by instantiating the child class directly inside the parent class (such as inside the constructor)
 
 ================================
 Caching / Distributed Systems 
@@ -152,10 +165,9 @@ If child collections are massive, chain .AsSplitQuery() to prevent a performance
 var authors = await _context.Authors
     .Include(a => a.Books)
     .ToListAsync();
-===============================================
+=======================================================================================
 
 In .NET Core (and .NET 8+) running on Azure, logging is implemented via the built-in ILogger abstraction and seamlessly integrated with cloud-native monitoring through Azure Monitor Application Insights.
-
 
 1. Architectural Blueprint
 Instead of writing logs to local files, the best practice is to pipe logs to the standard console output in JSON format or stream them directly via an SDK.
@@ -290,4 +302,19 @@ app.MapControllers();
 
 app.Run();
 ======================================================================================================
+
+In C#, a delegate is a type-safe object that references a method with a specific parameter list and return type. 
+Essentially, it acts as a "function pointer" or a variable that holds a method instead of a value, allowing you to pass methods as arguments and invoke them dynamically.
+
+Why Are Delegates Used?
+Delegates are fundamental to modern C# development because they introduce flexibility and decouple your code:
+1. Implementing Callbacks: You can pass a method into another method as a parameter. 
+This is highly useful for long-running operations (like database connections or file downloads) where you want to notify the caller when the task completes.
+2. Event-Driven Programming: Frameworks rely on delegates to handle user actions. 
+For instance, a graphic button class doesn't know what code should run when clicked; it exposes an onClick event driven by a delegate so you can plugin your custom method later.
+3. Pluggable & Dynamic Logic: They allow you to write highly reusable code. Instead of hardcoding a sorting routine, you can pass a custom comparison method via a delegate to a generic sorting function.
+4. Multicasting: A single delegate can point to multiple methods at the same time. When the delegate is invoked, all assigned methods run sequentially.
+
+=====================================================================================================
+
 
