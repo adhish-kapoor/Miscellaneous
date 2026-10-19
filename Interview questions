@@ -314,6 +314,81 @@ This is highly useful for long-running operations (like database connections or 
 For instance, a graphic button class doesn't know what code should run when clicked; it exposes an onClick event driven by a delegate so you can plugin your custom method later.
 3. Pluggable & Dynamic Logic: They allow you to write highly reusable code. Instead of hardcoding a sorting routine, you can pass a custom comparison method via a delegate to a generic sorting function.
 4. Multicasting: A single delegate can point to multiple methods at the same time. When the delegate is invoked, all assigned methods run sequentially.
+===================================================================================================
+
+🔄 The Standard 2-Stage Deployment Workflow
+
+Modern ADO deployments are configured using a single text file named azure-pipelines.yml. The workflow is split cleanly into a Build (CI) stage and a Deploy (CD) stage.
+
+Stage 1: Build (CI)
+• Trigger: A developer pushes code or merges a pull request into the main branch.
+• Tasks: The build agent restores dependencies, compiles the application, runs tests, and compresses the compiled app into a .zip file or a Docker container image.
+• Publishing: The resulting zip/container is saved back to ADO as an Artifact.
+
+Stage 2: Deploy (CD)
+• Trigger: Starts automatically as soon as Stage 1 finishes successfully.
+• Tasks: The deploy agent downloads the artifact from the build stage, authenticates using the Service Connection, and pushes the package directly to the hosting server.
+
+
+💻 Minimal YAML Pipeline Example (Deploying to Azure App Service)
+
+Here is a standard, lightweight example of what an application deployment pipeline looks like:
+
+trigger:
+  - main # Runs whenever code merges into main
+
+pool:
+  vmImage: 'ubuntu-latest' # The OS of the agent running the job
+
+stages:
+- stage: Build
+  displayName: 'Build and Package App'
+  jobs:
+  - job: BuildJob
+    steps:
+    # 1. Compile/Build your specific app code (e.g., Node, .NET, Python)
+    - script: |
+        npm install
+        npm run build --if-present
+      displayName: 'Install dependencies and build'
+
+    # 2. Package the app files into a zip
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+
+    # 3. Save the zip in ADO so the deploy stage can grab it
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/app.zip'
+        ArtifactName: 'drop'
+
+- stage: Deploy
+  displayName: 'Deploy App to Production'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeployJob
+    environment: 'Production' # Links to ADO environments for tracking/approvals
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          # 1. Pull the zip package created in the Build stage
+          - download: current
+            artifact: drop
+
+          # 2. Securely push the package to your Azure Web App
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              azureSubscription: 'My-Azure-Service-Connection' # Your preset connection name
+              appType: 'webAppLinux'
+              WebAppName: 'my-production-web-app'
+              package: '$(Pipeline.Workspace)/drop/app.zip'
+
 
 =====================================================================================================
 
