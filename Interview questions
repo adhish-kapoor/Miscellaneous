@@ -392,4 +392,43 @@ stages:
 
 =====================================================================================================
 
+Async/Await
 
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program
+{
+    // The Main method must be marked 'async Task' to use 'await' inside it
+    static async Task Main()
+    {
+        Console.WriteLine("Fetching data...");
+        
+        // Execution pauses here locally, freeing the thread, and resumes when done
+        string data = await FetchDataFromApiAsync(); 
+        
+        Console.WriteLine($"Data received: {data.Length} characters.");
+    }
+
+    // 1. Suffix the method name with "Async" by convention
+    // 2. Wrap the return type in a Task<T>
+    static async Task<string> FetchDataFromApiAsync()
+    {
+        using HttpClient client = new HttpClient();
+        
+        // HttpClient exposes built-in asynchronous methods
+        string result = await client.GetStringAsync("https://github.com");
+        
+        return result;
+    }
+}
+
+When the C# compiler encounters the async keyword, it triggers a process called compiler lowering. 
+It transforms your clean code into a highly optimized, hidden State Machine (struct) behind the scenes.
+1. The Hit: Your code runs synchronously until it hits the first await statement.
+2. The Yield: If the awaited task isn't finished yet, the state machine captures the method's local variables, pauses execution, and returns a Task object to the caller. 
+The executing thread goes back to the thread pool to handle other work.
+3. The Resume: When the external hardware or network driver signals that the job is complete, the thread pool assigns an available thread to re-enter the state machine and resume your code exactly where it left off.
+
+===============================================================
