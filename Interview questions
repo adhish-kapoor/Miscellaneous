@@ -432,3 +432,49 @@ The executing thread goes back to the thread pool to handle other work.
 3. The Resume: When the external hardware or network driver signals that the job is complete, the thread pool assigns an available thread to re-enter the state machine and resume your code exactly where it left off.
 
 ===============================================================
+
+1. Concurrency in C# (Asynchronous & Non-Blocking)
+
+Concurrency means multiple tasks make progress over overlapping time periods. In modern C#, this is overwhelmingly achieved using the async and await keywords.
+Crucially, async/await does not necessarily spin up new threads. 
+Instead, when a thread hits an await on an I/O operation (like downloading a file), the thread is released back to the system to do other work. 
+When the file finishes downloading, a thread hooks back in to finish the task.
+
+// Example: Concurrently fetching data from multiple APIs
+public async Task FetchDashboardDataAsync()
+{
+    // Both requests start and make progress concurrently.
+    // The current thread is NOT blocked; it can keep the UI responsive.
+    Task<string> weatherTask = _client.GetStringAsync("https://weather.com");
+    Task<string> stocksTask = _client.GetStringAsync("https://stocks.com");
+
+    // Wait for both to finish without blocking CPU resources
+    await Task.WhenAll(weatherTask, stocksTask); 
+
+    string weather = weatherTask.Result;
+    string stocks = stocksTask.Result;
+}
+
+
+2. Parallelism in C# (Split and Conquer)
+
+Parallelism is a subset of concurrency. It splits a massive chunk of data or CPU-heavy work into smaller pieces and throws them across multiple CPU cores at the exact same moment.
+C# achieves this via the Task Parallel Library (TPL) and PLINQ. These tools use the .NET Thread Pool to scale threads up to match your hardware's capacity.
+
+// Example: Parallel processing of independent data
+public void BlurImages(List<Image> images)
+{
+    // The TPL automatically handles partitioning the list
+    // and processing them simultaneously across your CPU cores.
+    Parallel.ForEach(images, image => 
+    {
+        ApplyHeavyBlurFilter(image); // CPU-intensive calculation
+    });
+}
+
+• Use Concurrency (async/await) when: You are waiting on something external to your code (calling a web API, reading a database, opening a file). 
+Keeping the application from freezing is your main priority.
+• Use Parallelism (Parallel / PLINQ) when: You have a massive array, list, or loops doing heavy mathematical or data operations that don't depend on each other. 
+Maximizing your raw hardware power is your main priority.
+===============================================================================
+
