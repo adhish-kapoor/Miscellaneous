@@ -489,6 +489,30 @@ An OnPush component will only re-render under four conditions:
 4. A Signal value used in the template updates
 
 2) Promise vs Observables
+- import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataService } from './data.service';
+
+@Component({ ... })
+export class UserComponent implements OnInit, OnDestroy {
+  users: User[] = [];
+  private sub!: Subscription;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+    // Kicks off the stream and handles emissions
+    this.sub = this.dataService.getUsers().subscribe({
+      next: (data) => this.users = data,
+      error: (err) => console.error(err)
+    });
+  }
+
+  ngOnDestroy() {
+    // Crucial: Clean up to avoid memory leaks
+    this.sub.unsubscribe(); 
+  }
+}
 
 3) SwitchMap, mergeMap, concatMap, ExhaustMap
 - In Angular and RxJS, switchMap, mergeMap, and concatMap are higher-order mapping operators. They take a value from a source Observable, map it to a new inner Observable (like an HTTP request), 
