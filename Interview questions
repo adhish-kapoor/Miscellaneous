@@ -527,7 +527,8 @@ It eliminates unnecessary change detection passes and provides a simple API with
 - Option 2: Services + RxJS BehaviorSubjects (The Classic Approach)
 
 7) How to prevent memory leaks ?
-
+- Focus on proper RxJS unsubscription, clearing global event listeners, cleaning up DOM references, and managing long-lived services. 
+When a component is destroyed but a reference to it remains active elsewhere, the JavaScript garbage collector cannot clear it from memory.
 ==================================================================================
 
 
