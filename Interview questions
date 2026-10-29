@@ -491,6 +491,9 @@ An OnPush component will only re-render under four conditions:
 2) Promise vs Observables
 
 3) SwitchMap, mergeMap, concatMap, ExhaustMap
+- In Angular and RxJS, switchMap, mergeMap, and concatMap are higher-order mapping operators. They take a value from a source Observable, map it to a new inner Observable (like an HTTP request), 
+and flatten the result so you receive the raw data instead of an Observable of Observables.
+The fundamental difference lies in how they handle multiple inner Observables when the source emits values rapidly
 
 4) Interceptors and route guards
 - Angular HTTP Interceptors act as middleware that sits between your application and the backend server. 
