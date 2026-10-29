@@ -478,3 +478,28 @@ Keeping the application from freezing is your main priority.
 Maximizing your raw hardware power is your main priority.
 ===============================================================================
 
+ANGULAR
+1) OnPush - The ChangeDetectionStrategy.OnPush strategy instructs Angular to skip checking a component unless specific, explicit triggers occur. 
+By default, Angular checks every component on every asynchronous event (clicks, timers, HTTP calls). OnPush optimizes performance by limiting checks to a strict subset of events.
+
+An OnPush component will only re-render under four conditions:
+1. An @Input() property reference changes (primitive change or object reference swap).
+2. An Event originates from the component or its immediate children (e.g., a template click handler).
+3. An Observable bound via the AsyncPipe emits a new value.
+4. A Signal value used in the template updates
+
+2) Promise vs Observables
+
+3) SwitchMap, mergeMap, concatMap, ExhaustMap
+
+4) Interceptors and route guards
+
+5) Reactive forms vs template driven forms
+
+6) How to manage shared state ?
+
+7) How to prevent memory leaks ?
+
+==================================================================================
+
+
