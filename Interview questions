@@ -493,6 +493,14 @@ An OnPush component will only re-render under four conditions:
 3) SwitchMap, mergeMap, concatMap, ExhaustMap
 
 4) Interceptors and route guards
+- Angular HTTP Interceptors act as middleware that sits between your application and the backend server. 
+They allow you to intercept, inspect, and transform outgoing HTTP requests and incoming responses globally.
+
+Core Use Cases
+• Authentication: Automatically attach a Bearer JWT token to every outgoing request.
+• Global Error Handling: Catch failed requests (like 401 Unauthorized or 500 Server Error) in one central location.
+• Loading Spinners: Trigger a UI spinner when network requests start and hide it when they complete.
+• Logging & Analytics: Measure server response times and log API activity.
 
 5) Reactive forms vs template driven forms
 
