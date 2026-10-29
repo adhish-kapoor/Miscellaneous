@@ -506,8 +506,25 @@ Core Use Cases
 • Logging & Analytics: Measure server response times and log API activity.
 
 5) Reactive forms vs template driven forms
+-Template-driven forms rely heavily on directives placed directly inside the HTML template.
+• How it works: Uses Angular's two-way data-binding directive ([(ngModel)]) to manage the form instance.
+• Setup: Import FormsModule into your module.
+• Best used for: Simple use cases like a login box, search bar, or email sign-up form where logic is minimal.
+• Pros: Quick to set up; requires very little TypeScript code.
+• Cons: Harder to unit test; difficult to scale or handle complex dynamic validation rules.
+
+- Reactive forms use a model-driven approach where controls are explicitly declared and managed inside the component's TypeScript class.
+• How it works: Form controls (FormControl, FormGroup, FormArray) are instantiated programmatically in code and linked to the template.
+• Setup: Import ReactiveFormsModule into your module.
+• Best used for: Complex enterprise apps, multi-step wizards, dynamic fields, and custom or asynchronous validators.
+• Pros: Highly testable without rendering the DOM; synchronous data flow; predictable and scalable structure.
+• Cons: Requires writing more boilerplate code in the TypeScript file.
 
 6) How to manage shared state ?
+- Option 1: Services + Signals (Recommended for Modern Angular)
+Using Angular Signals inside a shared service is the cleanest, most performant way to handle state. 
+It eliminates unnecessary change detection passes and provides a simple API without manual subscription management.
+- Option 2: Services + RxJS BehaviorSubjects (The Classic Approach)
 
 7) How to prevent memory leaks ?
 
