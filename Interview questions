@@ -478,7 +478,7 @@ Keeping the application from freezing is your main priority.
 Maximizing your raw hardware power is your main priority.
 ===============================================================================
 
-ANGULAR
+# ANGULAR
 1) OnPush - The ChangeDetectionStrategy.OnPush strategy instructs Angular to skip checking a component unless specific, explicit triggers occur. 
 By default, Angular checks every component on every asynchronous event (clicks, timers, HTTP calls). OnPush optimizes performance by limiting checks to a strict subset of events.
 
@@ -555,4 +555,97 @@ It eliminates unnecessary change detection passes and provides a simple API with
 When a component is destroyed but a reference to it remains active elsewhere, the JavaScript garbage collector cannot clear it from memory.
 ==================================================================================
 
+1. What are guards in Angular, why are they used, and what are the different types?
+- customers/employees-routing-module.ts
+  {path:'', component: CustomersComponent, canActivate: [CustomersLoadGuardService], resolve: {customers: CustomersResolverService}},
+  {path:'<COMPONENT_NAME>/edit/:id', component: CustomerDetailComponent }
 
+// To restrict access to a URL/Component , there are 5 types of route guards :-
+canActive
+canDeactivate
+canActivateChild
+CanLoad
+Resolve
+
+CanActivate     : Controls if route can be activated.
+If we navigate to parent route it will be called, if we then navigate to a child route it will NOT fire.
+However, If we directly navigate to child route,it will be fired.
+
+// example - RouteAuthServiceName.ts
+@Injectable()
+export class RouteAuthServiceName implements CanActivate, CanDeactivate<ComponentNameToDeactivate>, CanLoad, Resolve<TYPE_OF_DATA_RETURN> {
+  constructor(private _productService: ProductService, private _router: Router) {}
+  
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+     if(this.METHOD_VAR_IN_SERVICE) {                   // returns true/false , can be from other service as well  eg: this.authService.METHOD_VAR_IN_SERVICE
+        return true;
+     }
+     else {
+        this._router.navigate(['login']);
+        return false;
+     }
+  }
+
+CanActivateChild: Controls if children of route can be activated.
+It will be executed while navigating between child routes and also directly navigate to a child route.
+If we navigate to parent route, the canActivateChild guard will NOT be fired.
+
+CanLoad: Controls if route can even be loaded. 
+This becomes useful for feature modules that are lazy loaded. 
+They won’t even load if the guard returns false, thus cannot even see the source code of the module.
+It must be used with canActivate, because once loaded and user logged out, it will still be present in browser cache, guard will return true.
+
+CanDeactivate: Controls if the user can leave a route. 
+                        NOTE : It only prevents actions from within the application itself.
+       This guard doesn’t prevent user from closing browser tab or navigating to different address.
+       We may use `beforeunload` event of JS window, to achieve this.
+
+Resolve: To complete data retrieval before navigating to a route
+                        Refer: loading.io/css    for loader's HTML (app.component.html) + CSS (app.component.css)
+                                                NOTE : it uses NAVIGATION instance as written in app.component.ts (ROOT component)
+                                                       plus get snapshot of data in component where the data is shown after retrieval
+
+2. What are `CanActivate` and `CanLoad` guards? How do they differ, and what is the order of guard execution?
+- 
+What is CanActivate?
+• Definition: An Angular route guard that controls whether a user can access (activate) a specific route.
+• Behavior: It runs after the router matches the path. If protection fails, the user is blocked or redirected, but the lazy-loaded module (if any) has already been downloaded into the browser's memory.
+
+What is CanLoad?
+• Definition: An Angular route guard that controls whether an asynchronous lazy-loaded feature module can be loaded at all.
+• Behavior: It runs before the module's code is fetched over the network. If unauthorized, Angular never downloads the module bundle, saving bandwidth and improving performance.
+
+
+Order of Guard Execution
+When navigating to a route in Angular, guards run in a specific sequence across the routing hierarchy:
+1. CanDeactivate / CanActivateChild (bottom-up):
+	• Deactivation checks on current components (CanDeactivate) and child route checks (CanActivateChild) run first, starting from the deepest child route up to the parent.
+2. CanMatch (v14.2+):
+	• Evaluated early to see if a route path matches before trying to load bundles.
+3. CanLoad:
+	• Invoked next if an asynchronous lazy-loaded feature module needs to be fetched.
+4. CanActivate (top-down):
+	• Checked next, moving from the top-level parent route down to the deepest child route.
+5. Resolve:
+	• Data resolvers are executed last, right before the component is rendered.
+
+
+3. What is an Angular Routing Module, and how does routing work?
+- 
+
+4. How do you implement centralized error handling and logging using a shared Angular service?
+- 
+
+5. How do you create and manage a singleton service in Angular?
+- 
+
+6. What is the Virtual DOM concept? Does Angular use Virtual DOM?
+- 
+
+7. Scenario – Large Dataset: Consider a database table containing 150 million rows and 150 columns. 
+The user wants to display all records and columns simultaneously in a single Angular grid without affecting performance. How would you achieve this if pagination or lazy loading is not allowed?
+- 
+
+8. Scenario – Authentication & Authorization: Consider an Angular application with a .NET backend responsible for authentication and authorization. 
+How would you design the complete login flow using a common authentication service, HTTP interceptors, and route guards?
+- 
