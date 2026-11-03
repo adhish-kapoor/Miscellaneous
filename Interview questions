@@ -604,9 +604,8 @@ Resolve: To complete data retrieval before navigating to a route
                         Refer: loading.io/css    for loader's HTML (app.component.html) + CSS (app.component.css)
                                                 NOTE : it uses NAVIGATION instance as written in app.component.ts (ROOT component)
                                                        plus get snapshot of data in component where the data is shown after retrieval
-
+==================================================================================================================================================
 2. What are `CanActivate` and `CanLoad` guards? How do they differ, and what is the order of guard execution?
-- 
 What is CanActivate?
 • Definition: An Angular route guard that controls whether a user can access (activate) a specific route.
 • Behavior: It runs after the router matches the path. If protection fails, the user is blocked or redirected, but the lazy-loaded module (if any) has already been downloaded into the browser's memory.
@@ -614,7 +613,6 @@ What is CanActivate?
 What is CanLoad?
 • Definition: An Angular route guard that controls whether an asynchronous lazy-loaded feature module can be loaded at all.
 • Behavior: It runs before the module's code is fetched over the network. If unauthorized, Angular never downloads the module bundle, saving bandwidth and improving performance.
-
 
 Order of Guard Execution
 When navigating to a route in Angular, guards run in a specific sequence across the routing hierarchy:
@@ -628,24 +626,266 @@ When navigating to a route in Angular, guards run in a specific sequence across 
 	• Checked next, moving from the top-level parent route down to the deepest child route.
 5. Resolve:
 	• Data resolvers are executed last, right before the component is rendered.
-
+=========================================================================================================
 
 3. What is an Angular Routing Module, and how does routing work?
-- 
+- Angular Routing Module is a specialized, central mechanism used to configure and handle navigation within an Angular application. 
+It maps specific browser URL paths to distinct Angular components, allowing you to build Single-Page Applications (SPAs) where users navigate between views instantly without reloading the entire webpage from the server.
+
+The Route Configuration (Routes):
+An array of objects that defines your application paths. Each object maps a URL string segment to a specific component.typescript
+export const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' } // Default redirect
+];
+
+The Router Service (Router):
+The engine running behind the scenes. It continuously listens to the browser's location bar. When the URL changes, 
+it parses the string, matches it against your configuration array using a "first-match-wins" strategy, and extracts any dynamic route parameters.
+
+The Router Outlet (<router-outlet />):
+A dynamic placeholder element injected into your HTML template. Think of it as a portal; whichever component matches the active URL path is automatically instantiated and displayed directly inside this tag.
+
+The Router Links (routerLink):
+An attribute directive applied to standard HTML anchor tags or buttons (e.g., <a routerLink="/dashboard">). 
+It intercepts user clicks, blocks the browser's default page-refresh behavior, and instructs the router to switch the view programmatically
+=============================================================================================
 
 4. How do you implement centralized error handling and logging using a shared Angular service?
-- 
+- To implement centralized error handling and logging in Angular, 
+you need to override Angular’s default runtime exception behavior using a custom implementation of the built-in ErrorHandler token, 
+and optionally combine it with a functional HTTP Interceptor to specifically intercept server-side errors.
+
+
+Step 1: Create a Shared Remote Logging Service
+First, build a standalone service dedicated to transmitting error payloads to your monitoring backend (e.g., a logging API, Sentry, or Loggly).
+// logging.service.ts
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoggingService {
+  private http = inject(HttpClient);
+  private readonly logUrl = 'https://yourdomain.com';
+
+  logToServer(message: string, stack: string, context?: any) {
+    const payload = {
+      message,
+      stack,
+      context,
+      timestamp: new Date().toISOString(),
+      location: window.location.href
+    };
+
+    // Use subscribe() directly since this is a fire-and-forget background operation
+    this.http.post(this.logUrl, payload).subscribe({
+      error: (err) => console.error('Failed to send logs to server:', err)
+    });
+  }
+}
+
+
+Step 2: Implement the Global ErrorHandler
+Create a service that implements Angular's standard ErrorHandler interface. This acts as a global safety net, catching uncaught runtime exceptions across your entire application.
+// global-error-handler.ts
+import { ErrorHandler, Injectable, Injector, NgZone, inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoggingService } from './logging.service';
+
+@Injectable()
+export class GlobalErrorHandler implements ErrorHandler {
+  private injector = inject(Injector);
+  private zone = inject(NgZone);
+
+  handleError(error: any): void {
+    // 1. Resolve LoggingService dynamically to prevent cyclic dependencies
+    const logger = this.injector.get(LoggingService);
+
+    // 2. Extract meaningful information from the exception
+    const message = error.message ? error.message : error.toString();
+    const stack = error instanceof Error ? error.stack : '';
+
+    // 3. Log out to browser console for local debugging
+    console.error('Captured Global Error:', error);
+
+    // 4. Send telemetry data to the remote server
+    logger.logToServer(message, stack, { type: 'RuntimeError' });
+
+    // 5. Notify the user outside the microtask loop using NgZone to trigger change detection
+    this.zone.run(() => {
+      // Replace with your UI Notification service (e.g., MatSnackBar or Toastr)
+      alert(`An unexpected system error occurred: ${message}`);
+    });
+  }
+}
+
+Step 3: (Optional) Handle API Errors via HTTP Interceptor
+While the GlobalErrorHandler catches all unhandled exceptions, 
+an HTTP Interceptor provides a cleaner approach to handle network/API errors (like 401 Unauthorized or 500 Server Error) before they throw exceptions down to your application workflows
+
+
+Step 4: Register the Providers in your Application
+To make Angular swap its default mechanisms with your implementations, register them within your application boot configuration (app.config.ts or main.ts)
+// app.config.ts
+import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { GlobalErrorHandler } from './global-error-handler';
+import { errorInterceptor } from './error-interceptor';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(
+      withInterceptors([errorInterceptor]) // Registering the functional HTTP Interceptor
+    ),
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler // Overriding the default Angular Error Handler
+    }
+  ]
+};
+========================================================================================================
 
 5. How do you create and manage a singleton service in Angular?
-- 
+- The most efficient and recommended way to create a singleton service in Angular is by using the providedIn: 'root' property inside the @Injectable() decorator.
+When you use this configuration, Angular’s Dependency Injection (DI) framework creates a single, shared instance of the service that lives for the entire lifecycle of the application. 
+Additionally, this configuration makes the service tree-shakable, meaning Angular will completely exclude it from the final production build if no components end up using it.
+
+
+1. Creating a Singleton Service
+You can generate a service using the Angular CLI, which configures it as a singleton by default:
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // <-- This registers the service as a global singleton
+})
+export class MySingletonService {
+  private appState: string = 'Initial State';
+
+  getState() {
+    return this.appState;
+  }
+
+  updateState(newValue: string) {
+    this.appState = newValue;
+  }
+}
+
+
+2. Managing and Consuming the Singleton
+To ensure you are accessing the single shared instance across different files, you should inject the service using Angular's native dependency injection rather than instantiating it with the new keyword.
+
+import { Component, inject } from '@angular/core';
+import { MySingletonService } from './my-singleton.service';
+
+@Component({
+  selector: 'app-component-a',
+  template: `<button (click)="changeData()">Change State</button>`
+})
+export class ComponentA {
+  private myService = inject(MySingletonService); // Shared instance
+
+  changeData() {
+    this.myService.updateState('Updated by Component A');
+  }
+}
+===================================================================================================================
 
 6. What is the Virtual DOM concept? Does Angular use Virtual DOM?
-- 
+- The Virtual DOM (VDOM) is a programming concept where a lightweight, in-memory representation of the real browser UI is kept in sync with the actual DOM.
+When the state of an application changes, the framework performs the following steps:
+1. Generates a New Tree: It creates a completely new virtual tree representing the desired UI state.
+2. Diffing: A "diffing" algorithm compares this new virtual tree with a snapshot of the previous virtual tree to find exactly what changed.
+3. Batch Updates: It calculates the minimum number of steps needed to update the browser's UI and batches those specific changes directly to the real DOM.
+
+By manipulating plain JavaScript objects in memory instead of constantly modifying the heavy real DOM, the Virtual DOM drastically reduces costly browser operations like layout reflows and repaints.
+
+=> No, Angular does not use a Virtual DOM. Instead, Angular uses a completely different architectural mechanism called the Incremental DOM.
+
+=> How Angular Achieves High Performance Without It:-
+Angular uses a compilation process—specifically the Ivy engine—which breaks templates down into explicit JavaScript instructions. 
+During a Change Detection cycle, Angular executes these instructions sequentially.
+Instead of building a virtual representation of the world and diffing it, Angular keeps a highly optimized internal array structure (known as LView) for each component instance.
+It maps the template expressions directly to the DOM nodes and checks if individual values have shifted. 
+If a value hasn't changed, Angular skips it entirely; if it has changed, it targets and updates that exact real DOM element instantly.
+=================================================================================================================================================
 
 7. Scenario – Large Dataset: Consider a database table containing 150 million rows and 150 columns. 
 The user wants to display all records and columns simultaneously in a single Angular grid without affecting performance. How would you achieve this if pagination or lazy loading is not allowed?
-- 
+- Rendering 150 million rows and 150 columns (22.5 billion data cells) simultaneously in the DOM without pagination or lazy loading is technically impossible for a standard web browser. 
+The browser will run out of memory and crash long before the grid can render.
+
+However, you can achieve the illusion of displaying all records simultaneously while keeping performance perfectly smooth by using Advanced Virtualization (Bi-directional DOM Virtualization) alongside aggressive memory management.
+Here is how you can architect this solution in Angular:
+
+1. Implement Two-Dimensional Virtualization
+Standard row virtualization is not enough for 150 columns. You must use a grid component that supports both vertical and horizontal virtualization (e.g., AG Grid Enterprise or Clusterize.js).
+• The Mechanism: The browser DOM will only render the exact number of rows and columns visible in the user's viewport (e.g., 30 rows and 10 columns).
+• The Illusion: As the user scrolls, the grid dynamically swaps out the data cells, reusing the same HTML elements. To the user, it feels like a massive, uninterrupted sheet.
+
+2. Offload Data to a Web Worker
+Keeping 150 million records in the main browser thread will instantly cause an Out-Of-Memory (OOM) crash.
+• The Fix: Move the massive dataset array into a Web Worker.
+• The Execution: The Web Worker handles the sorting, filtering, and data management in a background thread. It only sends the tiny slice of data needed for the active viewport back to the main Angular thread.
+
+3. Bypass Angular's Change Detection
+Angular's default change detection will choke trying to track an array of this size.
+• ChangeDetectionStrategy.OnPush: Switch the grid component to OnPush to prevent Angular from checking the dataset on every mouse movement or scroll event.
+• Run Outside Angular: Instantiated the grid initialization and scroll listeners inside ngZone.runOutsideAngular(). Only bring updates back into the zone when the viewport data changes.
+
+4. Optimize Browser Memory with ArrayBuffers
+A standard JavaScript object array for 150 million rows will consume gigabytes of RAM.
+• If you control the data format, stream the data into the browser as binary data using TypedArrays (like Float64Array or Int32Array) inside shared ArrayBuffers. 
+This keeps the memory footprint predictably low and compact.
 
 8. Scenario – Authentication & Authorization: Consider an Angular application with a .NET backend responsible for authentication and authorization. 
 How would you design the complete login flow using a common authentication service, HTTP interceptors, and route guards?
 - 
+1. The ASP.NET Core Backend Setup
+
+• Token Generation: Upon receiving valid credentials at /api/auth/login, the ASP.NET Core AuthController validates the user via ASP.NET Core Identity or a custom user store and generates a signed JWT (JSON Web Token) containing claims such as nameid, email, and role.
+• Delivery Method: Return the JWT either in the response body (to be stored in client memory or localStorage) or—more securely—as an HttpOnly cookie.
+• Authorization Policies: Decorate protected .NET controllers or endpoints with [Authorize] and role-based policies ([Authorize(Roles = "Admin")])
+
+
+2. The Angular Authentication Service (AuthService)
+
+The AuthService manages the authentication state, token persistence, and communication with the .NET backend.
+• State Management: Use Angular Signals or an RxJS BehaviorSubject / Observable (currentUser$ or isAuthenticated$) to expose the active user status reactively across the app.
+• Login Method: Sends a POST request to the .NET /api/auth/login endpoint. On success, stores the token (if using Web Storage) and updates the internal authentication state signal/subject.
+• Logout Method: Clears stored tokens/session data and navigates the user back to the /login route.
+• Token Validation / Decoding: Parses the JWT payload to inspect expiration times or extract user roles for Role-Based Access Control (RBAC)
+
+3. The HTTP Interceptor (AuthInterceptor)
+
+An Angular functional or class-based HTTP interceptor automatically attaches the bearer token to outgoing API requests directed at your .NET backend.
+• Token Attachment: Reads the token from storage (or relies on browser-managed HttpOnly cookies) and clones the outgoing HttpRequest, injecting the Authorization: Bearer <token> header.
+• Target Domain Check: Scopes token injection so it only attaches credentials to your trusted API domain or matching route patterns.
+• Error Handling (401/403): Catches 401 Unauthorized responses. 
+If a refresh token mechanism is implemented, it can trigger a token refresh flow with the backend; otherwise, it logs the user out and redirects to /login.
+
+4. Route Guards (AuthGuard & RoleGuard)
+
+Angular functional route guards (implementing modern function-based CanActivate patterns) protect routes from unauthenticated or unauthorized access.
+• Authentication Guard:
+	• Injects AuthService and Router.
+	• Checks if the user is authenticated (via the service's state or token validity).
+	• If true, returns true allowing navigation; if false, uses router.parseUrl('/login') to redirect unauthenticated users.
+• Role-Based Authorization Guard:
+	• Evaluates required roles passed via route data (e.g., data: { roles: ['Admin'] }).
+	• Decodes the JWT or queries AuthService to verify if the user's claims match the allowed roles; redirects to an unauthorized page or dashboard if permissions fail.
+
+5. End-to-End Login Flow Summary
+
+1. User enters credentials in the Angular LoginComponent.
+2. AuthService.login() posts credentials to ASP.NET Core /api/auth/login.
+3. ASP.NET Core validates credentials and returns the JWT.
+4. Angular AuthService saves the token and updates the reactive authentication state.
+5. The router navigates the user to the protected dashboard.
+6. Subsequent HTTP calls pass through AuthInterceptor to attach the Bearer token, and protected routes verify access via AuthGuard.
+
+
