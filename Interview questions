@@ -1,6 +1,14 @@
-Q1 - Custom middleware
-Q2 - thread safety in C# Singleton pattern
-Q3 - The most reliable SQL query to get the second-highest distinct salary is:
+Custom middleware
+thread safety in C# Singleton pattern
+
+Q What is the difference between Task, Thread, and Task.Run()?
+Q Explain async and await internally. How does the async state machine work?
+Q What is the difference between async void and async Task?
+- In C#, the core difference is that async Task returns an object representing the ongoing work so the caller can wait for it and catch errors, 
+whereas async void returns nothing and fires off work that the caller cannot track or catch exceptions from.
+You should use async Task for almost all asynchronous methods. async void is strictly reserved for top-level event handlers.
+
+Q - The most reliable SQL query to get the second-highest distinct salary is:
 SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);
 
 => second-highest distinct salary using DENSE_RANK()
@@ -887,5 +895,7 @@ Angular functional route guards (implementing modern function-based CanActivate 
 4. Angular AuthService saves the token and updates the reactive authentication state.
 5. The router navigates the user to the protected dashboard.
 6. Subsequent HTTP calls pass through AuthInterceptor to attach the Bearer token, and protected routes verify access via AuthGuard.
+
+================================================
 
 
