@@ -484,6 +484,91 @@ public void BlurImages(List<Image> images)
 Keeping the application from freezing is your main priority.
 • Use Parallelism (Parallel / PLINQ) when: You have a massive array, list, or loops doing heavy mathematical or data operations that don't depend on each other. 
 Maximizing your raw hardware power is your main priority.
+
+==============================================================
+
+Q - How do you implement file uploads and downloads?
+To implement file uploads and downloads in an ASP.NET Core Web API, 
+use the IFormFile interface for receiving uploaded files via multipart/form-data requests and 
+the File() (or PhysicalFile()) controller helper methods for returning files to clients.
+
+1. File Upload Implementation
+
+For standard files, ASP.NET Core uses buffered model binding via IFormFile. 
+You can accept a single file, a List<IFormFile> for multiple files, or a DTO class containing IFormFile alongside extra form metadata.
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+
+[ApiController]
+[Route("api/[controller]")]
+public class FilesController : ControllerBase
+{
+    // Store uploads outside wwwroot to prevent direct unauthenticated web access
+    private readonly string _storagePath = Path.Combine(Directory.GetCurrentDirectory(), "UploadedFiles");
+
+    public FilesController()
+    {
+        if (!Directory.Exists(_storagePath))
+        {
+            Directory.CreateDirectory(_storagePath);
+        }
+    }
+
+    [HttpPost("upload")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest("No file was uploaded.");
+
+        // 1. Validate file extension
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".pdf" };
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+        if (string.IsNullOrEmpty(extension) || !allowedExtensions.Contains(extension))
+            return BadRequest("Invalid file type.");
+
+        // 2. Generate a safe, unique file name to prevent overwriting and path traversal attacks
+        var safeFileName = $"{Guid.NewGuid()}{extension}";
+        var fullPath = Path.Combine(_storagePath, safeFileName);
+
+        // 3. Save the file to disk
+        using (var stream = new FileStream(fullPath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        // In production, save 'safeFileName' and 'file.FileName' (original name) in your database
+        return Ok(new { SavedFileName = safeFileName, OriginalName = file.FileName, Size = file.Length });
+    }
+}
+
+2. File Download Implementation
+
+To serve a file back to the client, resolve its MIME type using FileExtensionContentTypeProvider and 
+return it using PhysicalFile() (which streams directly from disk without loading the whole file into RAM).
+
+    [HttpGet("download/{fileName}")]
+    public IActionResult DownloadFile(string fileName)
+    {
+        // Sanitize input to prevent directory traversal attacks (e.g., "../../appsettings.json")
+        var sanitizedFileName = Path.GetFileName(fileName);
+        var fullPath = Path.Combine(_storagePath, sanitizedFileName);
+
+        if (!System.IO.File.Exists(fullPath))
+            return NotFound("File not found.");
+
+        // Determine the correct MIME type (defaults to application/octet-stream if unknown)
+        var provider = new FileExtensionContentTypeProvider();
+        if (!provider.TryGetContentType(fullPath, out var contentType))
+        {
+            contentType = "application/octet-stream";
+        }
+
+        // PhysicalFile streams from disk and sets the Content-Disposition header for download
+        return PhysicalFile(fullPath, contentType, sanitizedFileName);
+    }
+
 ===============================================================================
 
 # ANGULAR
